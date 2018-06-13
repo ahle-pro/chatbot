@@ -1,0 +1,100 @@
+body{
+    margin: 0px;
+}
+
+.logo{
+    font-family: "Lora", "Adobe Blank";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100px;
+}
+
+.home{
+    /*background-image: url(images/interfaces_login_life.png);*/
+    background-size: 100% 100%;
+}
+.botui-message-content {
+    border-radius: 1em;
+    border-top-left-radius: 0px;
+    background-color: rgb(237,237,237);
+    padding: 0.5em 1em;
+    box-shadow: 0px 1px 2px grey;
+}
+
+.human.botui-message-content {
+    border-radius: 1em;
+    border-top-right-radius: 0px;
+    background-color: #0086c9;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.botui-app-container{
+    width: 100%;
+    height: 70%;    
+}
+
+.botui-container{
+    font-size: 3vmin;
+}
+
+.head{
+    background-image: url(images/head.png);
+    width: 100%;
+    height: 20%;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.bot{
+    background-image: url(images/ico_bot.png);
+    width: 15vw;
+    height: 15vw;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.buttons{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+}
+
+.btn{
+    display: block;
+    width: 100%;
+    height: auto;
+    
+    border-radius: 0.8em;
+    padding: 0.5em 2.5em;
+
+    font-family: "Roboto Regular", "Adobe Blank";
+    font-weight: 500;
+    font-style: normal;
+    font-size: 5vmin;
+    color: white;
+
+    opacity: 0.5;
+    margin: 0.3em;
+    border: 0;
+    box-shadow: 0px 2px 10px grey;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn1{
+    background-color: #F7C4BB;
+}
+
+.btn2{
+    background-color: #34917A;
+}
