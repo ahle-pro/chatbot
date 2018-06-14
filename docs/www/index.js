@@ -4,10 +4,12 @@ var firstname2 = "John";
 var lastname2 = "Fender";
 var firstname1 = "you";
 var locationUser1OK = "Rome";
-var firstRun = true;
+
 var current = {};
 var passwordUser1OK = "lvmh2020";
 var taskDone = false;
+var nDisconnect = sessionStorage.getItem("nDisconnect") || 0;
+var firstRun = nDisconnect==0;
 
 var lvmh = {};
 lvmh.handle_action_button = function(button){
@@ -22,10 +24,18 @@ lvmh.handle_action_text = function(action){
     
     if(current.waitingPassword){
         var password = action.text.value;
-        action.text.value = "*".repeat(password.length);
+        action.text.value = "•".repeat(password.length);
         current.waitingPassword = false;
         current.password = password;
     }
+    return true;
+}
+
+lvmh.handle_action_select = function(action, labels){
+    if(labels && labels.length==0){
+        labels = ["..."];
+    }
+    
     return true;
 }
 
@@ -410,7 +420,7 @@ function check5(){
         current.waitingPassword = true;
         return botui.action.text({
             action: {
-                placeholder: 'Enter your password here'
+                placeholder: 'Enter your password'
             }
         });
     }).then(function (res) { // will be called when it is submitted.
@@ -652,41 +662,26 @@ function no6_2(){
             content: texts[1]
         });
     }).then(function(){
-        return botui.action.button({
-            action: [
-                { // show only one button
-                    text: 'in the back of house',
-                    value: 'backHouse'
-                },
-                { // show only one button
-                    text: 'in circulations',
-                    value: 'circulations'
-                },
-                {
-                    text: 'in the windows',
-                    value: 'windows'
-                },
-                { // show only one button
-                    text: 'validate',
-                    value: 'validate'
-                },
-                {
-                    text: '...',
-                    value: '...'
-                }
-            ]
+        
+        return botui.action.form({
+            action: {
+                placeholder : "I know, they are ...",
+                value: '', 
+                multipleselect : true, // Default: false
+                options : [
+                    {value: "backHouse", text : "in the back of house" },
+                    {value: "circulations", text : "in circulations" },
+                    {value: "windows", text : "in the windows" }
+                ],
+                button: {
+                    icon: 'check',
+                    label: 'validate'
+                },                
+            },
         });
     }).then(function(response){
-        switch(response.value){
-            case "backHouse":
-                no6_2();
-                break;
-            case "circulations":
-                no6_2();
-                break;
-            case 'windows':
-                no6_2();
-                break;
+        debugger;
+        switch(response.button){            
             case 'validate':
                 no6_3();
                 break;
@@ -757,41 +752,26 @@ function no6_4(){
             content: texts[1]
         });
     }).then(function(){
-        return botui.action.button({
-            action: [
-                { // show only one button
-                    text: 'yes, for opening hours',
-                    value: '1'
+        
+        return botui.action.form({
+            action: {
+                placeholder : "I know, they are ...",
+                value: '', 
+                multipleselect : true, // Default: false
+                options : [
+                    {value: "openingHours", text : "yes, for opening hours" },
+                    {value: "night", text : "yes, for the night (security cameras)" },
+                    {value: "service", text : "yes, for service (cleaning, preparation)" }
+                ],
+                button: {
+                    icon: 'check',
+                    label: 'validate'
                 },
-                { // show only one button
-                    text: 'yes, for the night (security cameras)',
-                    value: '2'
-                },
-                {
-                    text: 'yes, for service (cleaning, preparation)',
-                    value: '3'
-                },
-                { // show only one button
-                    text: 'validate',
-                    value: 'validate'
-                },
-                {
-                    text: '...',
-                    value: '...'
-                }
-            ]
+            },
         });
     }).then(function(response){
-        switch(response.value){
-            case "1":
-                no6_4();
-                break;
-            case "2":
-                no6_4();
-                break;
-            case '3':
-                no6_4();
-                break;
+        debugger;
+        switch(response.button){            
             case 'validate':
                 no6_5();
                 break;
@@ -1171,7 +1151,9 @@ function exit0(args){
         });
     }).then(function(response){
         switch(response.value){
-            case "disconnect":                
+            case "disconnect":
+                sessionStorage.setItem("nDisconnect",nDisconnect++);
+                window.location = "home.html";                              
                 break;
             
         }        
@@ -1187,7 +1169,7 @@ var config = {
     childList: true,
     characterData: true
 };
-observer.observe(document.getElementsByClassName("botui-messages-container")[0], config);
+observer.observe(document.getElementsByClassName("botui-actions-container")[0], config);
 
 
 

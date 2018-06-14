@@ -10,10 +10,15 @@
     <div class="home screen">
         <img src="images/home.png" style="width: 100%"/>
         <div class="buttons">
-            <button class="btn btn1" onclick="window.location='index.html'">CONNECTION</button>
-            <button class="btn btn2">FLUSH/CACHE</button>
+            <button id="btnConnect" class="btn" onclick="window.location='index.html'">CONNECTION</button>
+            <button id="btnReset" class="btn">FLUSH/CACHE</button>
         </div>
     </div>
-      
+    <script>
+      var nDisconnect = sessionStorage.getItem("nDisconnect") || 0;
+      if(nDisconnect>0){
+        document.getElementById("btnConnect").innerHTML = "RECONNECTION";
+      }
+    </script>
   </body>
 </html>

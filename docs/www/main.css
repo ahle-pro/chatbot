@@ -73,6 +73,16 @@ button.botui-actions-buttons-button{
     width: 40vw;
     word-wrap: break-word;
 }
+
+button.botui-actions-buttons-button.multiselect{
+    background-color: #0086c9;
+    border-radius: 0.5em;
+}
+
+button.botui-actions-buttons-button.multiselect label{
+    cursor: pointer;
+}
+
 /* home page*/
 
 .buttons{
@@ -106,11 +116,11 @@ button.botui-actions-buttons-button{
     display: inline-block;
 }
 
-.btn1{
+#btnConnect{
     background-color: #F7C4BB;
 }
 
-.btn2{
+#btnReset{
     background-color: #34917A;
 }
 
