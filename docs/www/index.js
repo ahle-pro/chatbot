@@ -4,7 +4,30 @@ var firstname2 = "John";
 var lastname2 = "Fender";
 var firstname1 = "you";
 var locationUser1OK = "Rome";
-var firstRun = false;
+var firstRun = true;
+var current = {};
+var passwordUser1OK = "lvmh2020";
+var taskDone = false;
+
+var lvmh = {};
+lvmh.handle_action_button = function(button){
+    if(current.waitingPassword){
+        
+    }
+    
+    return true;
+}
+
+lvmh.handle_action_text = function(action){
+    
+    if(current.waitingPassword){
+        var password = action.text.value;
+        action.text.value = "*".repeat(password.length);
+        current.waitingPassword = false;
+        current.password = password;
+    }
+    return true;
+}
 
 init();
 
@@ -34,6 +57,8 @@ function init1(){
         let resValue = res.value;
 
         firstname1=resValue;
+
+        init2();
     });
 }
 
@@ -189,8 +214,88 @@ function init4(){
     });
 }
 
-
 function connection(){
+    if(firstRun){
+        connection1();// TODO
+    }
+    else{
+        if(taskDone){
+            connection3();
+        }
+        else{
+            connection2();
+        }
+    }    
+}
+
+function connection1(){
+    var a = botui.message.add({
+        delay: 1000,
+        content: `Hello ${firstname1},`
+    }).then(function(){
+        console.log("done");
+        return botui.message.add({
+            delay: 1000,
+            loading: true,
+            content: 'Happy to be able to exchange with you a few moments.'
+        });
+    }).then(function(){            
+        return botui.message.add({
+            delay: 1000,
+            loading: true,
+            content: `According to my information, you are a Store Planner for Italy, with Emilia Prescci.`
+        });
+    }).then(function(){
+        return botui.action.button({
+            action: [
+                { // show only one button
+                text: 'Confirm',
+                value: 'confirm'
+                },
+                { // show only one button
+                text: 'Revise',
+                value: 'revise'
+                }
+            ]
+            });
+    }).then(function(response){
+        if(response.value=="confirm"){
+            check2();
+        }
+    });
+}
+
+function connection2(){
+    var a = botui.message.add({
+        delay: 1000,
+        content: `Welcome back ${firstname1},`
+    })
+    .then(function(){
+        return botui.message.add({
+            delay: 1000,
+            loading: true,
+            content: `Please enter your password`
+        });
+    })
+    .then(function(){
+        current.waitingPassword = true;
+        return botui.action.text({
+            action: {
+                placeholder: 'Enter your password'
+            }
+        });
+    }).then(function(response){        
+
+        if(current.password==passwordUser1OK){
+            intro();
+        }
+        else{
+            check2();
+        }
+    });
+}
+
+function connection3(){
     var a = botui.message.add({
         delay: 1000,
         content: 'Hello,'
@@ -234,7 +339,7 @@ function check2(){
         delay: 1000,
         loading: true,
         content: text
-    }).then(function(){
+    }).then(function(){        
         return botui.action.text({
             action: {
                 placeholder: 'Enter your location here'
@@ -302,6 +407,7 @@ function check5(){
         loading: true,
         content: texts.join("<br/>")
     }).then(function(){
+        current.waitingPassword = true;
         return botui.action.text({
             action: {
                 placeholder: 'Enter your password here'
@@ -417,7 +523,7 @@ function store1_3(){
                 value: 'list5'
                 },
                 { // show only one button
-                text: 'Start randomly',
+                text: 'start randomly',
                 value: 'startRandom'
                 }
             ]
@@ -1031,7 +1137,6 @@ function transfer5(){
 
 
 function exit0(args){
-    debugger;
     let texts = [];
     switch(args.type){
         case 1:
@@ -1072,3 +1177,17 @@ function exit0(args){
         }        
     });
 }
+
+
+var observer = new MutationObserver(function(e){
+    //debugger;
+});
+var config = {
+    attributes: true,
+    childList: true,
+    characterData: true
+};
+observer.observe(document.getElementsByClassName("botui-messages-container")[0], config);
+
+
+

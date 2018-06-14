@@ -4,19 +4,21 @@
     <meta charset="utf-8">
     <title>LVMH Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="./botui/build/botui.min.css" />
+    <link rel="stylesheet" href="./botui/build/botui.css" />
     <link rel="stylesheet" href="./botui/build/botui-theme-default.css" />
     <link rel="stylesheet" href="main.css" />
   </head>
   <body>
     <div class="screen">
-      <div class="head"><div class="bot"></div></div>
+      <div class="head"><div class="bot rotating"></div></div>
       <div id="my-botui-app" class="botui-app-container">
         <bot-ui></bot-ui>
       </div>
+      <div id="foot" style="display: none">
       <input type="file" id="myFile" size="50">
     </div>
-    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    </div>
+    <script src="vue.js"></script>
     <script src="./botui/build/botui.js"></script>
     <script src="index.js"></script>
   </body>

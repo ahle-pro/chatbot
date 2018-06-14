@@ -125,7 +125,12 @@
       },
     	methods: {
     		handle_action_button: function (button) {
-          _handleAction(button.text);
+                    
+          // hooks
+          if(lvmh.handle_action_button(button)){            
+            _handleAction(button.text);    
+          }
+
           var defaultActionObj = {
             type: 'button',
             text: button.text,
@@ -143,8 +148,12 @@
           _actionResolve(defaultActionObj);
     		},
     		handle_action_text: function () {
-    			if(!this.action.text.value) return;
-          _handleAction(this.action.text.value);
+          if(!this.action.text.value) return;
+          // hooks
+          if(lvmh.handle_action_text(this.action)){            
+            _handleAction(this.action.text.value); 
+          }
+          
     			_actionResolve({
             type: 'text',
             value: this.action.text.value
@@ -152,6 +161,7 @@
     			this.action.text.value = '';
     		},
         handle_action_select: function () {
+          debugger;
           if(this.action.select.searchselect && !this.action.select.multipleselect) {
             if(!this.action.select.value.value) return; 
             _handleAction(this.action.select.value[this.action.select.label]);
@@ -234,6 +244,9 @@
 
       _msg.type = _msg.type || 'text';
       _msg.visible = (_msg.delay || _msg.loading) ? false : true;
+
+      // lvmh-bot: hooks
+      
       var _index = _instance.messages.push(_msg) - 1;
 
       return new Promise(function (resolve, reject) {
@@ -333,6 +346,7 @@
     _interface.action = {
       show: _showActions,
       hide: function () {
+        debugger;
         _instance.action.show = false;
         return Promise.resolve();
       },
@@ -348,6 +362,7 @@
         return _showActions(_opts);
       },
       select: function (_opts) {
+        debugger;
         _checkAction(_opts);
         _opts.type = 'select';
         _opts.action.label = _opts.action.label || 'text';

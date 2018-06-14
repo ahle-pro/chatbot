@@ -1,6 +1,7 @@
 body{
     margin: 0px;
     background-color: cadetblue;
+    height: 100%;
 }
 
 .logo{
@@ -30,11 +31,10 @@ body{
 
 .screen {
     width: 100%;
-    height: 100vh;
-    max-width: 70vh;
+    height: 100%;
     margin: auto;
-    overflow: hidden;
     background-color: white;
+    position: absolute;
 }
 
 .botui-app-container{
@@ -43,7 +43,10 @@ body{
 }
 
 .botui-container{
-    font-size: 3vmin;
+    font-size: 3vw;
+}
+.botui-messages-container{
+    padding-bottom: 40vh;
 }
 
 .head{
@@ -52,6 +55,8 @@ body{
     height: 20%;
     background-size: 100% 100%;
     position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .bot{
@@ -59,17 +64,23 @@ body{
     width: 15vw;
     height: 15vw;
     background-size: 100% 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    position: relative;
+    left: 42%;        
 }
+
+button.botui-actions-buttons-button{
+    background-color: #A07E8A;
+    border-radius: 1em;
+    width: 40vw;
+    word-wrap: break-word;
+}
+/* home page*/
 
 .buttons{
     position: absolute;
-    top: 50%;
+    bottom: 25%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%);
     text-align: center;
     max-width: 40vh;
 }
@@ -80,12 +91,12 @@ body{
     height: auto;
     
     border-radius: 0.8em;
-    padding: 0.5em 2.5em;
+    padding: 0.5em 0;
 
     font-family: "Roboto Regular", "Adobe Blank";
     font-weight: 500;
     font-style: normal;
-    font-size: 5vmin;
+    font-size: 5vw;
     color: white;
 
     opacity: 0.5;
@@ -104,8 +115,88 @@ body{
     background-color: #34917A;
 }
 
+/* menu */
+.botui-actions-container{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.botui-actions-buttons-button{
+    display: block;
+    width: 100%;
+}
+
+
+/* Responsive Web Design */
+@media screen and (orientation: portrait) {
+    .botui-app-container{
+        height: 80%;
+    }
+    
+}
+
 @media screen and (orientation: landscape) {
     .btn{
         font-size: 4vh;
     }
+
+    .head{
+        display: none;
+    }
+
+    .botui-container{        
+    }
+    .botui-app-container{
+        height: 100%;
+    }
+    .buttons{
+        position: absolute;
+        bottom: 20px;
+        top: auto;
+    }
+    .home.screen{
+        background-image: url(images/home_land.png);
+    }
+    img{
+        display: none;
+    }
 }
+
+
+/* animation*/
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .rotating {
+    -webkit-animation: rotating 5s linear infinite;
+    -moz-animation: rotating 5s linear infinite;
+    -ms-animation: rotating 5s linear infinite;
+    -o-animation: rotating 5s linear infinite;
+    animation: rotating 5s linear infinite;
+  }
