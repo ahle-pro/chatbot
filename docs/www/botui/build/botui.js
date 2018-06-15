@@ -122,39 +122,28 @@
       <div class="botui-actions-container">
           <transition name="slide-fade">
               <div v-if="action.show" v-botui-scroll>
-                  <form v-if="action.type == 'text'" class="botui-actions-text" @submit.prevent=\ "handle_action_text()" :class="action.cssClass">
+                  <form v-if="action.type == 'text'" class="botui-actions-text" @submit.prevent="handle_action_text()" :class="action.cssClass">
                       <i v-if="action.text.icon" class="botui-icon botui-action-text-icon fa" :class=\
                           "'fa-' + action.text.icon"></i>
                       <input type="text" ref="input" :type="action.text.sub_type" v-model=\ "action.text.value" class="botui-actions-text-input"
                           :placeholder="action.text.placeholder" :size=\ "action.text.size" :value=" action.text.value" :class="action.text.cssClass"
                           required v-focus/>
-                      <button type="submit" :class=\
-                          "{'botui-actions-buttons-button': !!action.text.button, 'botui-actions-text-submit': !action.text.button}">
-                          <i v-if="action.text.button && action.text.button.icon" class=\
-                              "botui-icon botui-action-button-icon fa" :class="'fa-' + action.text.button.icon"></i>
-                          <span>{{(action.text.button && action.text.button.label) || 'Go'}}</span>
+                      <button type="submit" :class="{'botui-actions-buttons-button': !!action.text.button, 'botui-actions-text-submit': !action.text.button}">                          
                       </button>
                   </form>
                   <form v-if="action.type == 'select'" class="botui-actions-select" @submit.prevent=\
                       "handle_action_select()" :class="action.cssClass">
-                      <i v-if="action.select.icon" class="botui-icon botui-action-select-icon fa" :class=\
-                          "'fa-' + action.select.icon"></i>
-                      <v-select v-if="action.select.searchselect && !action.select.multipleselect" v-model=\
-                          "action.select.value" :value="action.select.value" :placeholder="action.select.placeholder" class=\
+                      <i v-if="action.select.icon" class="botui-icon botui-action-select-icon fa" :class="'fa-' + action.select.icon"></i>
+                      <v-select v-if="action.select.searchselect && !action.select.multipleselect" v-model="action.select.value" :value="action.select.value" :placeholder="action.select.placeholder" class=\
                           "botui-actions-text-searchselect" :label="action.select.label" :options="action.select.options"></v-select>
                       <v-select v-else-if="action.select.searchselect && action.select.multipleselect" multiple
-                          v-model="action.select.value" :value="action.select.value" :placeholder=\ "action.select.placeholder"
-                          class="botui-actions-text-searchselect" :label="action.select.label" :options=\
-                          "action.select.options"></v-select>
+                          v-model="action.select.value" :value="action.select.value" :placeholder="action.select.placeholder"
+                          class="botui-actions-text-searchselect" :label="action.select.label" :options="action.select.options"></v-select>
                       <v-select v-else-if="action.select.searchselect && action.select.multipleselect" multiple
-                          v-model="action.select.value" :value="action.select.value" :placeholder=\ "action.select.placeholder"
-                          class="botui-actions-text-searchselect" :label="action.select.label" :options=\
-                          "action.select.options"></v-select>
-                      <select v-else v-model="action.select.value" class="botui-actions-text-select" :placeholder=\
-                          "action.select.placeholder" :size="action.select.size" :class="action.select.cssClass" required v-focus>
-                          <option v-for="option in action.select.options" :class="action.select.optionClass" v-bind:value=\
-                              "option.value" :disabled="(option.value == '')?true:false" :selected=\
-                              "(action.select.value == option.value)?'selected':''"> {{ option.text }}</option>
+                          v-model="action.select.value" :value="action.select.value" :placeholder="action.select.placeholder"
+                          class="botui-actions-text-searchselect" :label="action.select.label" :options="action.select.options"></v-select>
+                      <select v-else v-model="action.select.value" class="botui-actions-text-select" :placeholder="action.select.placeholder" :size="action.select.size" :class="action.select.cssClass" required v-focus>
+                          <option v-for="option in action.select.options" :class="action.select.optionClass" v-bind:value="option.value" :disabled="(option.value == '')?true:false" :selected="(action.select.value == option.value)?'selected':''"> {{ option.text }}</option>
                       </select>
                       <button type="submit" :class=\
                           "{'botui-actions-buttons-button': !!action.select.button, 'botui-actions-select-submit': !action.select.button}">
@@ -163,22 +152,41 @@
                           <span>{{(action.select.button && action.select.button.label) || 'Ok'}}</span>
                       </button>
                   </form>
-                  <form v-if="action.type == 'form'" class="botui-actions-select" @submit.prevent="handle_action_multiselect($event)" :class="action.cssClass">
-                      <button class="botui-actions-buttons-button multiselect" type="button"><input type="checkbox" id='c1' class='chk-btn' v-model="action.form.options[0].checked" /><label for='c1'>{{action.form.options[0].text}}</label></button>
-                      <button class="botui-actions-buttons-button multiselect" type="button"><input type="checkbox" id='c2' class='chk-btn' v-model="action.form.options[1].checked"/><label for='c2'>{{action.form.options[1].text}}</label></button>
-                      <button class="botui-actions-buttons-button multiselect" type="button"><input type="checkbox" id='c3' class='chk-btn' v-model="action.form.options[2].checked"/><label for='c3'>{{action.form.options[2].text}}</label></button>
-
-                      <button type="submit" class="botui-actions-buttons-button">                      
-                        <span>validate</span>
-                      </button>
-                      <button type="submit" class="botui-actions-buttons-button">
+                  <div v-if="action.type == 'form'">
+                    <form class="botui-actions-form" @submit.prevent="handle_action_form('validate')" :class="action.cssClass">                      
+                        <div class="buttons">
+                          <input type="checkbox" id='c1' class='chk-btn' v-model="action.form.options[0].checked" />
+                          <label class="botui-actions-buttons-button multiselect" for='c1'>{{action.form.options[0].text}}</label>
+                          <input type="checkbox" id='c2' class='chk-btn' v-model="action.form.options[1].checked"/>
+                          <label class="botui-actions-buttons-button multiselect" for='c2'>{{action.form.options[1].text}}</label>
+                          <input type="checkbox" id='c3' class='chk-btn' v-model="action.form.options[2].checked"/>
+                          <label class="botui-actions-buttons-button multiselect" for='c3'>{{action.form.options[2].text}}</label>
+                        </div>
+                        <div class="buttons">
+                        <button type="submit" class="botui-actions-buttons-button s0">
+                          <span>VALIDATE</span>
+                        </button>
+                        <button type="button" class="botui-actions-buttons-button s2" @click="handle_action_subMenu('open')">
                           <span>...</span>
-                      </button>
-                  </form>
+                        </button>
+                        <div>
+                    </form>
+                    <div class="subMenu">
+                        <button v-if="action.form.readmore" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('readmore')">read more</button>
+                        <button v-if="action.form.differ" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('differ')">differ this question</button>
+                        <button v-if="action.form.transfer" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('transfer')">transfer this question</button>
+                        <button v-if="action.form.assistance" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('assistance')">💁assistance</button>
+                        <button type="button" class="botui-actions-buttons-button subMenu s2" @click="handle_action_subMenu('close')">✕</button>
+                    </div>
+                  </div>
                   <div v-if="action.type == 'button'" class="botui-actions-buttons" :class="action.cssClass">
                       <button type="button" :class="button.cssClass" class="botui-actions-buttons-button" v-for=\
                           "button in action.button.buttons" @click="handle_action_button(button)" autofocus>
                           <i v-if="button.icon" class="botui-icon botui-action-button-icon fa" :class=\ "'fa-' + button.icon"></i> {{button.text}}</button>
+                  </div>
+                  <div v-if="action.type == 'photo'" class="botui-actions-buttons" :class="action.cssClass">
+                      <button type="button" :class="button.cssClass" class="botui-actions-buttons-button" v-for=\
+                          "button in action.button.buttons" @click="handle_action_button(button)" autofocus>{{button.text}}</button>
                   </div>
                   <form v-if="action.type == 'buttontext'" class="botui-actions-text" @submit.prevent=\
                       "handle_action_text()" :class="action.cssClass">
@@ -310,23 +318,39 @@
             }
           }
         },
-        handle_action_multiselect: function (button) {
-          debugger;
-          if(!this.action.button && this.action.button!="validate") return;
+        handle_action_form: function (button) {
+          if(!button) return;
           let texts = [];
           for (var i = 0; i < this.action.form.options.length; i++) { // Find select title
             if (this.action.form.options[i].checked) 
               texts.push(this.action.form.options[i].text);
           }
+          let msg = "...";
+          if(texts.length>0)
+            msg = texts.join(",");
+          _handleAction(msg);
 
-          _handleAction(texts.join(","));
           _actionResolve({
-            type: 'text',
+            type: 'form',
             value: "hhi",
-            button: "validate",
-            text: texts.join(","),
+            button: button,
+            text: msg,
           });
            
+        },
+        handle_action_subMenu: function (e) {
+          // hide the actions
+          if(e=="open"){
+            $(".botui-actions-form").fadeOut(()=>{          
+              $(".subMenu").show().slideDown();
+            });
+          }
+          else{
+            $(".subMenu").fadeOut(()=>{          
+              $(".botui-actions-form").show().slideDown();
+            });
+          }
+          
         }
     	}
     };

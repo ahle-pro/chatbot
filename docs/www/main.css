@@ -67,25 +67,101 @@ body{
     top: 5vw;        
 }
 
-button.botui-actions-buttons-button{
+.botui-actions-buttons-button{
     background-color: #A07E8A;
-    border-radius: 1em;
-    width: 40vw;
+    border-radius: 2em;
+    width: 100%;
+    min-width: 30vw;
     word-wrap: break-word;
+    padding: 0.8em 1.5em;
+    margin-bottom: 0.8em;
 }
 
-button.botui-actions-buttons-button.multiselect{
+label.botui-actions-buttons-button.multiselect{
     background-color: #0086c9;
-    border-radius: 0.5em;
+    border-radius: 1em;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 2.5vw;
+    cursor: pointer;
 }
 
-button.botui-actions-buttons-button.multiselect label{
-    cursor: pointer;
+input[type="checkbox"]:checked + label {
+    opacity: 1;
+}
+
+input[type="checkbox"] + label{
+    opacity: 0.6;
+}
+/* validate button*/
+button.s0 {
+    background-color: #0086c9;
+    opacity: 1;
+}
+/* photo buttons*/
+.s1 button {
+    background-color: #CDC86B;
+}
+
+/* close buttons*/
+.subMenu button.s2  {
+    background-color: #666666;
+}
+
+button.s2 {
+    background-color: #666666;
+}
+/* subMenu buttons*/
+div.subMenu{
+    display: none;
+}
+
+.subMenu button{
+    background-color: #A3A3A3;
+    border-radius: 2em;
+    width: 100%;
+    word-wrap: break-word;
+    padding-left: 3.5em;
+    padding-right: 3.5em;
+}
+
+/* QCM */
+.botui-actions-form .buttons{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+input[type="checkbox"]{
+    display: none;
+}
+
+button.botui-actions-buttons-button{
+    font-size: 2.5vw;
+}
+
+/* text input*/
+.botui-actions-text{
+    background-color: #EFEEED;
+    width: 100vw;
+    padding: 0.5em;
+    text-align: right;
+}
+.botui-actions-text-input{
+    width: 70vw;
+}
+.botui-actions-text-submit{
+    display: inline-block;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl4j8s6VkJEgzO1iyl-UB05IxAmZvoHbMpDK5Gotac9R1r9xDqhA");
+    background-size: 100% 100%;
+    margin-right: 1em;
+    width: 5vw;
+    height: 5vw;
 }
 
 /* home page*/
 
-.buttons{
+.home.screen .buttons{
     position: absolute;
     bottom: 25%;
     left: 50%;
@@ -130,6 +206,7 @@ button.botui-actions-buttons-button.multiselect label{
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    width: fit-content;
 }
 .botui-actions-buttons-button{
     display: block;
@@ -159,7 +236,7 @@ button.botui-actions-buttons-button.multiselect label{
     .botui-app-container{
         height: 100%;
     }
-    .buttons{
+    .home.screen .buttons{
         position: absolute;
         bottom: 20px;
         top: auto;
@@ -167,7 +244,7 @@ button.botui-actions-buttons-button.multiselect label{
     .home.screen{
         background-image: url(images/home_land.png);
     }
-    img{
+    .home.screen img{
         display: none;
     }
 }

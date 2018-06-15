@@ -5,7 +5,7 @@ var lastname2 = "Fender";
 var firstname1 = "you";
 var locationUser1OK = "Rome";
 
-var current = {};
+var current = {back: "", stack: []};
 var passwordUser1OK = "lvmh2020";
 var taskDone = false;
 var nDisconnect = sessionStorage.getItem("nDisconnect") || 0;
@@ -259,11 +259,11 @@ function connection1(){
         return botui.action.button({
             action: [
                 { // show only one button
-                text: 'Confirm',
+                text: 'confirm',
                 value: 'confirm'
                 },
                 { // show only one button
-                text: 'Revise',
+                text: 'revise',
                 value: 'revise'
                 }
             ]
@@ -326,11 +326,11 @@ function connection3(){
         return botui.action.button({
             action: [
                 { // show only one button
-                text: 'Confirm',
+                text: 'confirm',
                 value: 'confirm'
                 },
                 { // show only one button
-                text: 'Revise',
+                text: 'revise',
                 value: 'revise'
                 }
             ]
@@ -461,11 +461,11 @@ function intro(){
         return botui.action.button({
             action: [
                 { // show only one button
-                text: 'Continue',
+                text: 'continue',
                 value: 'continue'
                 },
                 { // show only one button
-                text: 'Readmore',
+                text: 'readmore',
                 value: 'readmore'
                 }
             ]
@@ -634,7 +634,7 @@ function no6(){
     }).then(function(response){
         switch(response.value){
             case "stop":
-                no6();
+                exit0({type: 2});
                 break;
             case "continue":
                 no6_2();
@@ -662,7 +662,7 @@ function no6_2(){
             content: texts[1]
         });
     }).then(function(){
-        
+        current.back = no6_2;
         return botui.action.form({
             action: {
                 placeholder : "I know, they are ...",
@@ -676,14 +676,29 @@ function no6_2(){
                 button: {
                     icon: 'check',
                     label: 'validate'
-                },                
+                },
+                readmore: "readmore",
+                differ: "differ",
+                transfer: "transfer",
+                assistance: "assistance"
             },
         });
     }).then(function(response){
-        debugger;
-        switch(response.button){            
+        switch(response.button){    
             case 'validate':
                 no6_3();
+                break;
+            case 'readmore':
+                readmore();
+                break;
+            case 'transfer':
+                transfer();
+                break;
+            case 'differ':
+                differ();
+                break;
+            case 'assistance':
+                assistance();
                 break;
         }
     });
@@ -694,18 +709,11 @@ function no6_3(){
         "We have to check where are the existing sensors (light or presence)"];
     let choices = [];
 
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: texts[1]
-        });
-    }).then(function(){
-        return botui.action.button({
+    sendTexts(texts, ()=>{
+        current.back = no6_3;
+
+        botui.action.button({
+            cssClass: "s1",
             action: [
                 { // show only one button
                     text: 'yes',
@@ -714,26 +722,23 @@ function no6_3(){
                 {
                     text: 'no',
                     value: 'no'
-                },
-                {
-                    text: 'differ this photo',
-                    value: 'differ'
                 }
             ]
+        }).then(function(response){
+            switch(response.value){
+                case "yes":
+                    no6_2();
+                    break;
+                case "no":
+                    no6_4();
+                    break;
+                case 'differ':
+                    differ();
+                    break;
+            }
         });
-    }).then(function(response){
-        switch(response.value){
-            case "yes":
-                no6_2();
-                break;
-            case "no":
-                no6_4();
-                break;
-            case 'differ':
-                no6_2();
-                break;
-        }
     });
+        
 }
 
 function no6_4(){
@@ -752,7 +757,7 @@ function no6_4(){
             content: texts[1]
         });
     }).then(function(){
-        
+        current.back = no6_4;
         return botui.action.form({
             action: {
                 placeholder : "I know, they are ...",
@@ -767,6 +772,10 @@ function no6_4(){
                     icon: 'check',
                     label: 'validate'
                 },
+                readmore: "readmore",
+                differ: "differ",
+                transfer: "transfer",
+                assistance: "assistance"
             },
         });
     }).then(function(response){
@@ -774,6 +783,18 @@ function no6_4(){
         switch(response.button){            
             case 'validate':
                 no6_5();
+                break;
+            case 'readmore':
+                readmore();
+                break;
+            case 'transfer':
+                transfer();
+                break;
+            case 'differ':
+                differ();
+                break;
+            case 'assistance':
+                assistance();
                 break;
         }
     });
@@ -795,6 +816,7 @@ function no6_5(){
         });
     }).then(function(){
         return botui.action.button({
+            cssClass: "s1",
             action: [
                 { // show only one button
                     text: 'yes',
@@ -803,10 +825,6 @@ function no6_5(){
                 {
                     text: 'no',
                     value: 'no'
-                },
-                {
-                    text: 'differ this photo',
-                    value: 'differ'
                 }
             ]
         });
@@ -819,10 +837,9 @@ function no6_5(){
                 exit0({"type": 1});
                 break;
             case 'differ':
-                no6_2();
+                differ();
                 break;
         }
-
     });
 }
 
@@ -876,7 +893,7 @@ function answerAnyway(){
         }).then(function (response) {
             switch (response.value) {
                 case "back":
-                    
+                    current.back();
                     break;
 
             }
@@ -915,6 +932,7 @@ function assistance(){
         }).then(function (response) {
             switch (response.value) {
                 case "back":
+                    current.back();
                     break;
 
             }
@@ -936,7 +954,8 @@ function readmore(){
         }).then(function (response) {
             switch (response.value) {
                 case "back":
-
+                    debugger;
+                    current.back();
                     break;
 
             }
@@ -958,7 +977,7 @@ function differ(){
         }).then(function (response) {
             switch (response.value) {
                 case "back":
-                    
+                    current.back();
                     break;
 
             }
