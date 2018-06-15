@@ -143,7 +143,7 @@ button.botui-actions-buttons-button{
 /* text input*/
 .botui-actions-text{
     background-color: #EFEEED;
-    width: 100vw;
+    width: fit-content;
     padding: 0.5em;
     text-align: right;
 }
