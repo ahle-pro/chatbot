@@ -71,7 +71,7 @@
       return "<a class='botui-message-content-link' target='" + _target + "' href='" + $2 +"'>" + $1 + "</a>";
     }
 
-    function _parseMarkDown(text) {
+    function _parseMarkDown(text) {      
       return text
                  .replace(_markDownRegex.image, "<img class='botui-message-content-image' src='$2' alt='$1' />")
                  .replace(_markDownRegex.icon, "<i class='botui-icon botui-message-content-icon fa fa-$1'></i>")
@@ -496,7 +496,6 @@
     _interface.action = {
       show: _showActions,
       hide: function () {
-        debugger;
         _instance.action.show = false;
         return Promise.resolve();
       },
@@ -512,7 +511,6 @@
         return _showActions(_opts);
       },
       select: function (_opts) {
-        debugger;
         _checkAction(_opts);
         _opts.type = 'select';
         _opts.action.label = _opts.action.label || 'text';

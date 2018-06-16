@@ -159,6 +159,7 @@ button.botui-actions-buttons-button{
     margin-right: 1em;
     width: 5vw;
     height: 5vw;
+    outline: 0;
 }
 
 /* home page*/

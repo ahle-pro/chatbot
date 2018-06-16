@@ -39,6 +39,16 @@ lvmh.handle_action_select = function(action, labels){
     return true;
 }
 
+function addImage(url){
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            $(`<div class="botui-message"><div class="botui-message-content text"><img class="botui-message-content-image" src="${url}" /></div></div>`).hide().appendTo("div.botui-messages-container").fadeIn(500);
+            resolve();
+        }, 1000);
+    });
+}
+
+// start
 init();
 
 function init(){
@@ -160,11 +170,8 @@ function init3(){
             })
             .then(function(res){
                 document.getElementById("myFile").onchange = function(){
-                    botui.message.add({
-                        delay: 1000,
-                        loading: true,
-                        content: `![user2](https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg)`
-                    });
+                    debugger;
+                    addImage("https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg");                    
                 };
             })
             .then(function(){
@@ -177,11 +184,8 @@ function init3(){
             })
             .then(function(res){
                 document.getElementById("myFile").onchange = function(){
-                    botui.message.add({
-                        delay: 1000,
-                        loading: true,
-                        content: `![team](https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png)`
-                    }).then(function(){
+                    addImage("https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png")
+                    .then(function(){
                         init4();
                     });
                     
@@ -437,12 +441,7 @@ function intro(){
         loading: true,
         content: texts.join("<br/>")
     }).then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            type: "markdown",
-            content: `![user2](https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg)`
-        });
+        return addImage(`https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg`);
     }).then(function (res) { // will be called when it is submitted.
         let texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
         return botui.message.add({
@@ -451,12 +450,7 @@ function intro(){
             content: texts1.join("<br/>")
         });
     }).then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            type: "text",
-            content: `![team](https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png)`
-        });
+        return addImage(`https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png`);
     }).then(function(){
         return botui.action.button({
             action: [
@@ -779,7 +773,6 @@ function no6_4(){
             },
         });
     }).then(function(response){
-        debugger;
         switch(response.button){            
             case 'validate':
                 no6_5();
@@ -1178,17 +1171,5 @@ function exit0(args){
         }        
     });
 }
-
-
-var observer = new MutationObserver(function(e){
-    //debugger;
-});
-var config = {
-    attributes: true,
-    childList: true,
-    characterData: true
-};
-observer.observe(document.getElementsByClassName("botui-actions-container")[0], config);
-
 
 
