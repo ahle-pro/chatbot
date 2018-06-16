@@ -699,8 +699,7 @@ function no6_2(){
 }
 
 function no6_3(){
-    let texts = ["👍","Do you need to take a picture of this?",
-        "We have to check where are the existing sensors (light or presence)"];
+    let texts = ["👍","Do you need to take a picture of this?"];
     let choices = [];
 
     sendTexts(texts, ()=>{
