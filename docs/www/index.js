@@ -72,7 +72,7 @@ function addImage(opts){
                 <div class="botui-message-content image ${opts.cssClass}"><img class="botui-message-content-image" src="${opts.url}" /></div>
             </div>`).hide().appendTo("div.botui-messages-container").fadeIn(500);
             resolve();
-        }, 1000);
+        }, 500);
     });
 }
 
@@ -291,8 +291,8 @@ function init3(){
                     case "no":// TODO
                         break;
                 }                
-                saveChanges();
-                window.location = "home.html";
+                
+                init4();
             });
         });
     });
@@ -321,12 +321,13 @@ function init4(){
     }).then(function(response){
         switch(response.value){
             case "yes":
-                connection();
+                saveChanges();                
                 break;
             case "no":
                 init3();
                 break;
         }
+        window.location = "home.html";
     });
 }
 
@@ -980,6 +981,41 @@ function sendTexts(texts, cb){
     }).then(function(){
         texts.splice(0,1);
         sendTexts(texts, cb);
+    });
+}
+
+function uploadFile(file, cb){
+    // Begin file upload
+    console.log("Uploading file to Imgur..");
+
+    // Replace ctrlq with your own API key
+    var apiUrl = 'https://api.imgur.com/3/image';
+    var apiKey = '70cfd7b28a139cc';
+
+    var settings = {
+      async: false,
+      crossDomain: true,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      url: apiUrl,
+      headers: {
+        Authorization: 'Client-ID ' + apiKey,
+        Accept: 'application/json'
+      },
+      mimeType: 'multipart/form-data'
+    };
+
+    var formData = new FormData();
+    formData.append("image", file);
+    settings.data = formData;
+
+    // Response contains stringified JSON
+    // Image URL available at response.data.link
+    $.ajax(settings).done(function(response) {
+      let link = JSON.parse(response).data.link;
+      console.log(link);
+      cb(link);
     });
 }
 

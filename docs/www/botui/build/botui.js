@@ -267,12 +267,15 @@
             document.getElementById("myFile").click();
             this._data.action.addMessage = false;
             
-            document.getElementById("myFile").onchange = function(){                
-                let url = window.URL.createObjectURL(this.files[0]);
-                defaultActionObj.url = url;
-                addImage({url: url, cssClass: "human"}).then(()=>{
-                  _handleAction(button.text);
-                  _actionResolve(defaultActionObj);
+            document.getElementById("myFile").onchange = function(){
+                let file = this.files[0];
+                //let url = window.URL.createObjectURL(file);
+                uploadFile(file, function(url){
+                  defaultActionObj.url = url;
+                  addImage({url: url, cssClass: "human"}).then(()=>{
+                    _handleAction(button.text);
+                    _actionResolve(defaultActionObj);
+                  });
                 });
             };
           }
