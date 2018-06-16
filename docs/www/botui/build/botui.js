@@ -128,8 +128,7 @@
                       <input type="text" ref="input" :type="action.text.sub_type" v-model=\ "action.text.value" class="botui-actions-text-input"
                           :placeholder="action.text.placeholder" :size=\ "action.text.size" :value=" action.text.value" :class="action.text.cssClass"
                           required v-focus/>
-                      <button type="submit" :class="{'botui-actions-buttons-button': !!action.text.button, 'botui-actions-text-submit': !action.text.button}">                          
-                      </button>
+                      <button type="submit" :class="{'botui-actions-buttons-button': !!action.text.button, 'botui-actions-text-submit': !action.text.button}"></button>
                   </form>
                   <form v-if="action.type == 'select'" class="botui-actions-select" @submit.prevent=\
                       "handle_action_select()" :class="action.cssClass">
@@ -185,8 +184,8 @@
                           <i v-if="button.icon" class="botui-icon botui-action-button-icon fa" :class=\ "'fa-' + button.icon"></i> {{button.text}}</button>
                   </div>
                   <div v-if="action.type == 'photo'" class="botui-actions-buttons" :class="action.cssClass">
-                      <button type="button" :class="button.cssClass" class="botui-actions-buttons-button" v-for=\
-                          "button in action.button.buttons" @click="handle_action_button(button)" autofocus>{{button.text}}</button>
+                      <button type="button" :class="button.cssClass" class="botui-actions-buttons-button" 
+                        v-for="button in action.button.buttons" @click="handle_action_photo(button)" autofocus>{{button.text}}</button>
                   </div>
                   <form v-if="action.type == 'buttontext'" class="botui-actions-text" @submit.prevent=\
                       "handle_action_text()" :class="action.cssClass">
@@ -256,6 +255,31 @@
           }
 
           _actionResolve(defaultActionObj);
+        },
+        handle_action_photo: function (button) {
+          var defaultActionObj = {
+            type: 'photo',
+            text: button.text,
+            value: button.value
+          };
+
+          if(button.value=="yes"){
+            document.getElementById("myFile").click();
+            this._data.action.addMessage = false;
+            
+            document.getElementById("myFile").onchange = function(){                
+                let url = window.URL.createObjectURL(this.files[0]);
+                defaultActionObj.url = url;
+                addImage({url: url, cssClass: "human"}).then(()=>{
+                  _handleAction(button.text);
+                  _actionResolve(defaultActionObj);
+                });
+            };
+          }
+          else{
+            _handleAction(button.text);
+            _actionResolve(defaultActionObj);
+          }          
     		},
     		handle_action_text: function () {
           if(!this.action.text.value) return;
@@ -508,6 +532,13 @@
         _checkAction(_opts);
         _opts.type = 'button';
         _instance.action.button.buttons = _opts.action;
+        return _showActions(_opts);
+      },
+      photo: function (_opts) {
+        _checkAction(_opts);
+        _opts.type = 'photo';
+        _instance.action.button.buttons = _opts.action;
+        _instance.action.addMessage = false;
         return _showActions(_opts);
       },
       select: function (_opts) {

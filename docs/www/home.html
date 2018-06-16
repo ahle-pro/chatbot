@@ -11,14 +11,21 @@
         <img src="images/home.png" style="width: 100%"/>
         <div class="buttons">
             <button id="btnConnect" class="btn" onclick="window.location='index.html'">CONNECTION</button>
-            <button id="btnReset" class="btn">FLUSH/CACHE</button>
+            <button id="btnReset" class="btn" onclick="window.location='index.html?mode=init'">SETTINGS</button>
         </div>
     </div>
     <script>
-      var nDisconnect = sessionStorage.getItem("nDisconnect") || 0;
-      if(nDisconnect>0){
-        document.getElementById("btnConnect").innerHTML = "RECONNECTION";
+      var nodata = localStorage.getItem("user1") ? false : true;
+      if(nodata){
+        document.getElementById("btnConnect").style = "visibility: hidden";
       }
+      else{
+        var nDisconnect = JSON.parse(localStorage.getItem("user1")).nDisconnect;
+        if(nDisconnect>0){
+          document.getElementById("btnConnect").innerHTML = "RECONNECTION";
+        }
+      }
+      
     </script>
   </body>
 </html>

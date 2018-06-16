@@ -63,8 +63,8 @@ button.botui-actions-buttons-button{
 .botui-message-content-image{
     margin:5px 0;
     display:block;
-    max-width:200px;
-    max-height:200px
+    max-width:150px;
+    max-height:150px;
 }
 .botui-message-content-link{
     text-decoration:underline

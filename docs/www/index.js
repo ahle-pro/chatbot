@@ -1,15 +1,41 @@
 var botui = new BotUI('my-botui-app');
 
-var firstname2 = "John";
-var lastname2 = "Fender";
-var firstname1 = "you";
-var locationUser1OK = "Rome";
+var user1 = { 
+    firstname: "",
+    password: "lvmh2020",
+    location: "Rome",    
+    nDisconnect: 0,
+    nConnect: 0,
+    taskDone: false
+};
+
+var user2 = {
+    firstname: "John",
+    lastname: "Fender",
+    url: "https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg"
+}
+
+var bot = {
+    designer: "https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png",
+}
 
 var current = {back: "", stack: []};
-var passwordUser1OK = "lvmh2020";
-var taskDone = false;
-var nDisconnect = sessionStorage.getItem("nDisconnect") || 0;
-var firstRun = nDisconnect==0;
+var passed = {};
+
+// start
+function start(){
+    let params = (new URL(document.location)).searchParams;
+    let mode = params.get("mode");
+
+    if(mode=="init"){
+        init();
+    }
+    else{
+        connection();
+    }
+
+}
+start();
 
 var lvmh = {};
 lvmh.handle_action_button = function(button){
@@ -39,25 +65,101 @@ lvmh.handle_action_select = function(action, labels){
     return true;
 }
 
-function addImage(url){
+function addImage(opts){
     return new Promise(function(resolve, reject){
         setTimeout(function(){
-            $(`<div class="botui-message"><div class="botui-message-content text"><img class="botui-message-content-image" src="${url}" /></div></div>`).hide().appendTo("div.botui-messages-container").fadeIn(500);
+            $(`<div class="botui-message">
+                <div class="botui-message-content image ${opts.cssClass}"><img class="botui-message-content-image" src="${opts.url}" /></div>
+            </div>`).hide().appendTo("div.botui-messages-container").fadeIn(500);
             resolve();
         }, 1000);
     });
 }
 
-// start
-init();
+function saveChanges(){
+    let storage = localStorage;
+
+    storage.setItem("user1", JSON.stringify(user1));
+    storage.setItem("user2", JSON.stringify(user2));
+    storage.setItem("bot", JSON.stringify(bot));
+    
+    console.log("saved!");
+}
+
+function load(){
+    let storage = localStorage;
+    
+    user1 = JSON.parse(storage.getItem("user1"));
+    user2 = JSON.parse(storage.getItem("user2"));
+    bot = JSON.parse(storage.getItem("bot"));
+}
+
+function reset(){
+   localStorage.clear();
+}
+
+function setDefault(){
+    user1.password = "lvmh2020";
+    user1.location = "Rome";
+    
+    user2.firstname = "John";
+    user2.lastname = "Fender",
+    user2.url = "https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg";
+    
+    bot.designer = "https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png";
+
+    saveChanges();
+}
 
 function init(){
-    if(firstRun){
+    let data = localStorage.getItem("user1");
+    if(!data){
         init1();
     }
     else{
         init2();
     }
+}
+
+function init2(){
+    let texts = ["Start demo with default values?"];
+    
+    botui.message.add({
+        delay: 1000,
+        loading: true,
+        content: texts[0]
+    }).then(function(){
+        return botui.action.button({
+            action: [
+                {
+                    text: 'yes',
+                    value: 'yes'
+                },
+                {
+                    text: 'no, change values',
+                    value: 'no'
+                },
+                {
+                    text: 'no, reset',
+                    value: 'reset'
+                }
+            ]
+            });
+    }).then(function(response){
+        switch(response.value){
+            case "yes":
+                setDefault();
+                window.location = "home.html";
+                break;
+            case "no":
+                init3();
+                break;
+            case "reset":
+                reset();
+                init();
+                break;
+        }
+    });
 }
 
 function init1(){
@@ -76,41 +178,9 @@ function init1(){
     }).then(function (res) { // will be called when it is submitted.
         let resValue = res.value;
 
-        firstname1=resValue;
+        user1.firstname=resValue;
 
         init2();
-    });
-}
-
-function init2(){
-    let texts = ["Start demo with default values?"];
-    
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return botui.action.button({
-            action: [
-                { // show only one button
-                    text: 'yes',
-                    value: 'yes'
-                },
-                { // show onlyesy one button
-                    text: 'no, change values',
-                    value: 'no'
-                }
-            ]
-            });
-    }).then(function(response){
-        switch(response.value){
-            case "yes":
-                connection();
-                break;
-            case "no":
-                init3();
-                break;
-        }
     });
 }
 
@@ -125,7 +195,7 @@ function init3(){
         }).then(function (res) { // will be called when it is submitted.
             let resValue = res.value;
 
-            locationUser1OK=resValue;
+            user1.location=resValue;
 
             let texts1 = ["The first name of one of his collaborators..."];
 
@@ -142,7 +212,7 @@ function init3(){
             }).then(function(res){
                 let resValue = res.value;
 
-                firstname2=resValue;
+                user2.firstname=resValue;
 
                 return botui.message.add({
                     delay: 1000,
@@ -159,39 +229,71 @@ function init3(){
             })
             .then(function(res){
                 let resValue = res.value;
-
-                lastname2=resValue;
-
+                user2.lastname=resValue;
+                
                 return botui.message.add({
                     delay: 1000,
                     loading: true,
                     content: "And a picture of this collaborator…"
                 });
             })
-            .then(function(res){
-                document.getElementById("myFile").onchange = function(){
-                    debugger;
-                    addImage("https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg");                    
-                };
+            .then(function(res){                
+                return botui.action.photo({
+                    cssClass: "s1",// photo
+                    action: [
+                        { // show only one button
+                            text: 'yes',
+                            value: 'yes'
+                        },
+                        {
+                            text: 'no',
+                            value: 'no'
+                        }
+                    ]
+                });
             })
-            .then(function(){
-                
+            .then(function(response){                
+                switch(response.value){
+                    case "yes":  
+                        user2.url = response.url;
+                        break;
+                        
+                    case "no":// TODO
+                        break;
+                }
                 return botui.message.add({
                     delay: 1000,
                     loading: true,
                     content: "And to finish a small photo of the team of designers"
                 });
             })
-            .then(function(res){
-                document.getElementById("myFile").onchange = function(){
-                    addImage("https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png")
-                    .then(function(){
-                        init4();
-                    });
-                    
-                };
+            .then(function(res){                
+                return botui.action.photo({
+                    cssClass: "s1",// photo
+                    action: [
+                        { // show only one button
+                            text: 'yes',
+                            value: 'yes'
+                        },
+                        {
+                            text: 'no',
+                            value: 'no'
+                        }
+                    ]
+                });
             })
-            
+            .then(function(response){
+                switch(response.value){
+                    case "yes":  
+                        bot.designer = response.url;
+                        break;
+                        
+                    case "no":// TODO
+                        break;
+                }                
+                saveChanges();
+                window.location = "home.html";
+            });
         });
     });
 }
@@ -229,121 +331,85 @@ function init4(){
 }
 
 function connection(){
+    load();
+    user1.nConnect++;
+
+    let firstRun = user1.nConnect == 1;
+
     if(firstRun){
         connection1();// TODO
     }
     else{
-        if(taskDone){
+        
+        if(user1.taskDone){
             connection3();
         }
         else{
             connection2();
         }
-    }    
+    }
+    
 }
 
 function connection1(){
-    var a = botui.message.add({
-        delay: 1000,
-        content: `Hello ${firstname1},`
-    }).then(function(){
-        console.log("done");
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: 'Happy to be able to exchange with you a few moments.'
-        });
-    }).then(function(){            
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: `According to my information, you are a Store Planner for Italy, with Emilia Prescci.`
-        });
-    }).then(function(){
-        return botui.action.button({
+    let texts = [`Hello ${user1.firstname},`, 'Happy to be able to exchange with you a few moments.', `According to my information, you are a Store Planner for Italy, with Emilia Prescci.`];
+    sendTexts(texts, function(){
+        botui.action.button({
             action: [
-                { // show only one button
-                text: 'confirm',
-                value: 'confirm'
+                {
+                    text: 'confirm',
+                    value: 'confirm'
                 },
-                { // show only one button
-                text: 'revise',
-                value: 'revise'
+                {
+                    text: 'revise',
+                    value: 'revise'
                 }
             ]
-            });
-    }).then(function(response){
-        if(response.value=="confirm"){
-            check2();
-        }
+        }).then(function(response){
+            if(response.value=="confirm"){
+                check2();
+            }
+        });
     });
+   
 }
 
 function connection2(){
-    var a = botui.message.add({
-        delay: 1000,
-        content: `Welcome back ${firstname1},`
-    })
-    .then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: `Please enter your password`
-        });
-    })
-    .then(function(){
+    let texts = [`Welcome back ${user1.firstname},`,`Please enter your password`];
+    sendTexts(texts, ()=>{
         current.waitingPassword = true;
         return botui.action.text({
             action: {
                 placeholder: 'Enter your password'
             }
+        }).then(function(response){
+            if(current.password==user1.password){
+                intro();
+            }
+            else{
+                check2();
+            }
         });
-    }).then(function(response){        
-
-        if(current.password==passwordUser1OK){
-            intro();
-        }
-        else{
-            check2();
-        }
     });
+        
 }
 
 function connection3(){
-    var a = botui.message.add({
-        delay: 1000,
-        content: 'Hello,'
-    }).then(function(){
-        console.log("done");
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: 'Happy to be able to exchange with you a few moments.'
-        });
-    }).then(function(){            
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: `According to my information, you are a Store Planner for Italy, with Emilia Prescci.`
-        });
-    }).then(function(){
+    let texts = [`Good news! The remaining points around Rome Etoile store were handled by ${user2.firstname} ${user2.lastname}!`,`No more delayed questions`,`👑`];
+    sendTexts(texts, function(){
         return botui.action.button({
             action: [
                 { // show only one button
-                text: 'confirm',
-                value: 'confirm'
-                },
-                { // show only one button
-                text: 'revise',
-                value: 'revise'
+                text: 'Disconnect',
+                value: 'disconnect'
                 }
             ]
-            });
-    }).then(function(response){
-        if(response.value=="confirm"){
-            check2();
-        }
-    });
+        }).then(function(response){
+            if(response.value=="disconnect"){
+                exit0({type: 3});
+            }
+        });
+    });        
 }
 
 function check2(){
@@ -362,7 +428,7 @@ function check2(){
     }).then(function (res) { // will be called when it is submitted.
         console.log(res.value); // will print whatever was typed in the field.
 
-        if(res.value=="Rome"){
+        if(res.value==user1.location){
             check5();
         }
         else{
@@ -383,7 +449,7 @@ function check3(){
         .then(function (res) { // will be called when it is submitted.
             console.log(res.value); // will print whatever was typed in the field.
 
-            if(res.value=="Rome"){
+            if(res.value==user1.location){
                 check5();
             }
             else{
@@ -407,6 +473,9 @@ function check4(){
         })
             .then(function (response) {
                 if (response.value == "assistance") {
+                    current.back = function(){
+                        exit0({type: 3});
+                    };
                     assistance();
                 }
             });
@@ -428,20 +497,21 @@ function check5(){
             }
         });
     }).then(function (res) { // will be called when it is submitted.
-        console.log(res.value); // will print whatever was typed in the field.
+        user1.password = current.password;
+        saveChanges();
 
         intro();
     });
 }
         
 function intro(){
-    let texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${firstname2} ${lastname2} who works with you.`];
+    let texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${user2.firstname} ${user2.lastname} who works with you.`];
     botui.message.add({
         delay: 1000,
         loading: true,
         content: texts.join("<br/>")
     }).then(function(){
-        return addImage(`https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/user2.jpg`);
+        return addImage({url: user2.url});
     }).then(function (res) { // will be called when it is submitted.
         let texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
         return botui.message.add({
@@ -450,17 +520,13 @@ function intro(){
             content: texts1.join("<br/>")
         });
     }).then(function(){
-        return addImage(`https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png`);
+        return addImage({url: bot.designer});
     }).then(function(){
         return botui.action.button({
             action: [
                 { // show only one button
                 text: 'continue',
                 value: 'continue'
-                },
-                { // show only one button
-                text: 'readmore',
-                value: 'readmore'
                 }
             ]
             });
@@ -468,124 +534,120 @@ function intro(){
         if(response.value=="continue"){
             store1_1();
         }
-        else{
-
-        }
     });
 }
 
 function store1_1(){
     let texts = [`You are currently in charge of LVMH Rome Etoile store, right?`];
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts.join("<br/>")
-    }).then(function(){
-        return botui.action.button({
+    sendTexts(texts, ()=>{
+        botui.action.button({
             action: [
-                { // show only one button
-                text: 'yes',
-                value: 'yes'
+                { 
+                    text: 'yes',
+                    value: 'yes'
                 },
-                { // show only one button
-                text: 'no, but I know the right person',
-                value: 'no1'
+                { 
+                    text: 'no, but I know the right person',
+                    value: 'no1'
                 },
-                { // show only one button
-                text: 'no, and I don\'t know the right person',
-                value: 'no2'
+                {
+                    text: 'no, and I don\'t know the right person',
+                    value: 'no2'
                 }
             ]
-            });
-    }).then(function(response){
-        switch(response.value){
-            case "yes":
-                store1_3();
-                break;
-            case "no1":
-                store1_2();
-                break;
-            case "no2":
-                store1_2();
-                break;
-        }
+            })
+        .then(function(response){
+            switch(response.value){
+                case "yes":
+                    store1_3();
+                    break;
+                case "no1":
+                    store1_2();
+                    break;
+                case "no2":
+                    store1_2();
+                    break;
+            }
+        });
     });
 }
 
 function store1_3(){
-    let texts = ["Nice!","Together, we have to investigate 5 points of the checklist that have not been covered yet."];
-
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts.join("<br/>")
-    }).then(function(){
-        return botui.action.button({
-            action: [
-                { // show only one button
-                text: 'list the 5 points pending',
-                value: 'list5'
-                },
-                { // show only one button
-                text: 'start randomly',
-                value: 'startRandom'
-                }
-            ]
-        });
-    }).then(function(response){
-        switch(response.value){
-            case "list5":
-                store1_4();
-                break;
-            case "startRandom":
-                store1_2();
-                break;
+    let nPoints = 5;
+    if(passed.store14) nPoints = 4;
+    let texts = ["Nice!",`Together, we have to investigate ${nPoints} points of the checklist that have not been covered yet.`];
+    let choices = [
+        {
+            text: `list the ${nPoints} points pending`,
+            value: 'list'
+        },
+        {
+            text: 'start randomly',
+            value: 'startRandom'
         }
+    ];
+
+    sendTexts(texts, ()=>{
+        botui.action.button({
+            action: choices
+        }).then(function(response){
+            switch(response.value){
+                case "list":
+                    store1_4();
+                    break;
+                case "startRandom":
+                    Math.random() > 0.25 ? no6(): not6();
+                    break;
+            }
+        });
     });
 }
 
 function store1_4(){
-    let texts = ["Nice!","Which point do you wish to address?"];
-    let choices = [];
-
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return botui.action.button({
-            action: [
-                { // show only one button
-                    text: '1 Code of Conduct',
-                    value: '1'
-                },
-                { // show only one button
-                    text: '4 Air tightness',
-                    value: '4'
-                },
-                { // show only one button
-                    text: '6 Sensors and Timers',
-                    value: '6'
-                },
-                { // show only one button
-                    text: '7 Energy management',
-                    value: '7'
-                },
-                { // show only one button
-                    text: '8 Materials and eco-design',
-                    value: '8'
-                }
-            ]
-        });
-    }).then(function(response){
-        switch(response.value){
-            case "6":
-                no6();
-                break;
-            default:
-                not6();
-                break;
+    let texts = ["I am very strong as a robot to recall lists 😉","Which point do you wish to address?"];
+    let choices = [
+        {
+            text: '1 Code of Conduct',
+            value: '1'
+        },
+        {
+            text: '4 Air tightness',
+            value: '4'
+        },
+        {
+            text: '6 Sensors and Timers',
+            value: '6'
+        },
+        {
+            text: '7 Energy management',
+            value: '7'
+        },
+        {
+            text: '8 Materials and eco-design',
+            value: '8'
         }
+    ];
+
+    if(passed.store14){
+        texts = [texts[0]];
+        choices.shift();// remove code of conduct
+    }
+
+    sendTexts(texts, ()=>{
+        passed.store14 = true;
+        botui.action.button({
+            action: choices
+        })
+        .then(function(response){
+            switch(response.value){
+                case "6":
+                    no6();
+                    break;
+                default:
+                    not6();
+                    break;
+            }
+        });
     });
 }
 
@@ -720,7 +782,9 @@ function no6_3(){
         }).then(function(response){
             switch(response.value){
                 case "yes":
-                    no6_2();
+                    addImage({url: "images/store161.png", cssClass: "human"}).then(function(){
+                        no6_4();
+                    });
                     break;
                 case "no":
                     no6_4();
@@ -730,8 +794,7 @@ function no6_3(){
                     break;
             }
         });
-    });
-        
+    });        
 }
 
 function no6_4(){
@@ -823,7 +886,10 @@ function no6_5(){
     }).then(function(response){
         switch(response.value){
             case "yes":
-                
+                addImage({url: "images/store162.jpg", cssClass: "human"}).then(function(){
+                    exit0({"type": 1});
+                });
+                break;
                 break;
             case "no":
                 exit0({"type": 1});
@@ -836,56 +902,65 @@ function no6_5(){
 }
 
 function not6(){
-    let texts = ["Please try point No.6"];
-
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return botui.action.button({
-            action: [
-                { // show only one button
-                    text: 'Try to complain to the designers',
-                    value: 'complain'
-                },
-                { // show only one button
-                    text: 'OK, go back to the list',
-                    value: 'back'
-                }
-            ]
-        });
-    }).then(function(response){
-        switch(response.value){
-            case "complain":
-                no6();
-                break;
-            case "back":
-                store1_4();
-                break;
+    let texts = [`Sorry, I'm a poor lonesome bot, not yet programed to deepen these points on which I ask you yet!`,"😅","Please try point No.6"];
+    let choices = [
+        {
+            text: 'Try to complain to the designers',
+            value: 'complain'
+        },
+        {
+            text: 'OK, go back to the list',
+            value: 'back'
         }
+    ];
+    if(passed.not6){
+        texts = [texts[2]];
+        choices = [choices[1]];
+    }
+
+    sendTexts(texts,()=>{
+        passed.not6 = true;
+        botui.action.button({
+            action: choices
+        })
+        .then(function(response){
+            switch(response.value){
+                case "complain":
+                    current.stack.push("store1_4");
+                    answerAnyway();
+                    break;
+                case "back":
+                    store1_4();
+                    break;
+            }
+        });
     });
 }
 
 function answerAnyway(){
-    let texts = ["Keep in mind that I am a prototype", "🐣"];
+    let texts = [`Sorry, not ready for this task yet.`,"Keep in mind that I am a prototype", "🐣"];    
+    let choices = [
+        {
+            text: 'Try to insure against designers',
+            value: 'insure'
+        }
+        ,{
+            text: 'go back',
+            value: 'back'
+        }
+    ];
+    if(passed.answerAnyway){
+        choices = [texts[1]];
+    }
 
     sendTexts(texts, function(){
+        passed.answerAnyway=true;
         botui.action.button({
-            action: [
-                {
-                    text: 'Try to insure against designers',
-                    value: 'insure'
-                }
-                ,{
-                    text: 'go back',
-                    value: 'back'
-                }
-            ]
+            action: choices
         }).then(function (response) {
             switch (response.value) {
                 case "back":
-                    current.back();
+                    current.stack.pop()();
                     break;
 
             }
@@ -910,10 +985,12 @@ function sendTexts(texts, cb){
 
 function assistance(){
     let texts = ["I'll be the most zealous bot, in connection with a human team.", "We will be able to detail the questions and answers.","But for now, I'm not willing to help.","😇"];
-    let texts2 = ["Remember... No help at the moment.","😇"];
-
+    if(passed.assistance){
+        texts = ["Remember... No help at the moment.","😇"];
+    }
 
     sendTexts(texts, function(){
+        passed.assistance = true;
         botui.action.button({
             action: [
                 {
@@ -1102,7 +1179,8 @@ function transfer5(){
     let texts = ["📧", "A photo to give a wink to the one who will help you?"];
 
     sendTexts(texts, function(){
-        botui.action.button({
+        botui.action.photo({
+            cssClass: "s1",// photo
             action: [
                 { // show only one button
                     text: 'yes',
@@ -1115,9 +1193,11 @@ function transfer5(){
             ]
         }).then(function(response){
             switch(response.value){
-                case "yes":
+                case "yes":  
                     
+                    exit0({"type": 1});
                     break;
+                    
                 case "no":// TODO
                     exit0({"type": 1});
                     break;
@@ -1131,7 +1211,8 @@ function exit0(args){
     let texts = [];
     switch(args.type){
         case 1:
-            texts = ["Thank you! We have no other questions for you at the moment, but I will not fail to contact you for some additional information.", "🤖"];            
+            user1.taskDone = true;
+            texts = ["Thank you! We have no other questions for you at the moment, but I will not fail to contact you for some additional information.", "🤖"];
             break;
         case 2:
             texts = ["I understand... I will do much better next time! Thank you for this exchange.","🤖"];
@@ -1141,33 +1222,25 @@ function exit0(args){
             texts = ["I will not fail to contact you for some additional information. See you soon.", "🤖"];
             break;
     }
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return  botui.message.add({
-                delay: 1000,
-                loading: true,
-                content: texts[1]
-            });
-    }).then(function(){
-        return botui.action.button({
+    sendTexts(texts, function(){
+        botui.action.button({
             action: [
                 {
                     text: 'Disconnect',
                     value: 'disconnect'
                 }
             ]
+        })
+        .then(function(response){
+            switch(response.value){
+                case "disconnect":
+                    user1.nDisconnect++;
+                    saveChanges();
+                    window.location = "home.html";                              
+                    break;
+                
+            }        
         });
-    }).then(function(response){
-        switch(response.value){
-            case "disconnect":
-                sessionStorage.setItem("nDisconnect",nDisconnect++);
-                window.location = "home.html";                              
-                break;
-            
-        }        
     });
 }
 
