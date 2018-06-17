@@ -124,7 +124,7 @@
                   <form v-if="action.type == 'text'" class="botui-actions-text" @submit.prevent="handle_action_text()" :class="action.cssClass">
                       <i v-if="action.text.icon" class="botui-icon botui-action-text-icon fa" :class="'fa-' + action.text.icon"></i>
                       <input type="text" ref="input" :type="action.text.sub_type" v-model="action.text.value" class="botui-actions-text-input"
-                          :placeholder="action.text.placeholder" :size="action.text.size" :value=" action.text.value" :class="action.text.cssClass" :pattern="!!action.subtype ? '^(\\+\\d{1,3}[- ]?)?\\d{10}$': false"
+                          :placeholder="action.text.placeholder" :size="action.text.size" :value=" action.text.value" :class="action.text.cssClass" :datatype="action.text.datatype"
                           required v-focus v-input list="list"/>
                         <datalist id="list"></datalist>
                       <button type="submit" :class="{'botui-actions-buttons-button': !!action.text.button, 'botui-actions-text-submit': !action.text.button}"></button>
@@ -422,11 +422,19 @@
 
     root.Vue.directive('input', {
       inserted: function (el) {
-        //let html = "";
-        //collaborators.forEach((item)=>{
-        //  html+=`<option value="${item}"/>`;
-        //});
-        //document.querySelector("#list").innerHTML = html;
+        let list = [];
+        if(el.getAttribute("datatype")=="collaborator"){
+          list = collaborators;
+        }
+        if(el.getAttribute("datatype")=="location"){
+          list = locations;
+        }
+        
+        let html = "";        
+        list.forEach((item)=>{
+          html+=`<option value="${item}"/>`;
+        });
+        document.querySelector("#list").innerHTML = html;
 
         /* var complete = new Awesomplete('.botui-actions-text-input', {
           minChars: 0,
@@ -434,7 +442,7 @@
           maxItems: 5,
         }); */
 
-        let search = el;
+        /* let search = el;
         let datalist = document.getElementById("list");
         search.addEventListener('keyup', function handler(event) {
           // remove all 
@@ -447,8 +455,8 @@
                 html+=`<option value="${item}"/>`;
               }
           });
-          datalist.innerHTML=html;
-      });
+          datalist.innerHTML=html; 
+      });*/
 
       }
     });
@@ -647,7 +655,7 @@
 
     if(_options.searchselect) {
       loadScript(_searchselect, function() {
-        Vue.component('v-select', VueSelect.VueSelect);      
+        Vue.component('v-select', VueSelect.VueSelect);
       });
     }
 
