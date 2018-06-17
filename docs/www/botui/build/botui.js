@@ -304,8 +304,7 @@
           if(!this.action.text.value) return;
           // hooks
           if(lvmh.handle_action_text(this.action)){                       
-            _handleAction(this.action.text.value);            
-
+            _handleAction(this.action.text.value);
           }
           
     			_actionResolve({
