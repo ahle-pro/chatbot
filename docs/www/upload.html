@@ -24,39 +24,7 @@ $('input[type=file]').on("change", function() {
       return false;
     }
 
-    // Begin file upload
-    console.log("Uploading file to Imgur..");
-
-    // Replace ctrlq with your own API key
-    var apiUrl = 'https://api.imgur.com/3/image';
-    var apiKey = '70cfd7b28a139cc';
-
-    var settings = {
-      async: false,
-      crossDomain: true,
-      processData: false,
-      contentType: false,
-      type: 'POST',
-      url: apiUrl,
-      headers: {
-        Authorization: 'Client-ID ' + apiKey,
-        Accept: 'application/json'
-      },
-      mimeType: 'multipart/form-data'
-    };
-
-    var formData = new FormData();
-    formData.append("image", $files[0]);
-    settings.data = formData;
-
-    // Response contains stringified JSON
-    // Image URL available at response.data.link
-    $.ajax(settings).done(function(response) {
-        debugger;
-      let obj = JSON.parse(response);
-      console.log(obj.data.link);
-    });
-
+    
   }
 });
 });

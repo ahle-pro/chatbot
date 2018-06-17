@@ -202,6 +202,7 @@ function init3(){
     sendTexts(texts, function(){
         botui.action.text({
             action: {
+                icon: "map-marker",
                 placeholder: 'Enter the location'
             }
         }).then(function (res) { // will be called when it is submitted.
@@ -442,7 +443,8 @@ function check2(){
         content: text
     }).then(function(){        
         return botui.action.text({
-            action: {
+            action: {                
+                icon: "map-marker",
                 placeholder: 'Enter your location here'
             }
         });
@@ -464,6 +466,7 @@ function check3(){
     sendTexts(texts, function(){
         botui.action.text({
             action: {
+                icon: "map-marker",
                 placeholder: 'Enter your location here'
             }
         })
@@ -596,8 +599,8 @@ function store1_1(){
 function store1_2(){
     let texts = [`Please let us know who he/she is!`];
 
-    sendTexts(texts, function(){
-        botui.action.text({
+    /* sendTexts(texts, function(){
+        botui.action.select({
             action: {
                 placeholder: 'Enter the fullname here'
             }
@@ -611,6 +614,21 @@ function store1_2(){
                 exit0({type: 1});
             }
         });
+    }); */
+
+    botui.action.text({
+        action: {
+            placeholder: 'Enter the fullname here'
+        }
+    }).then(function (res) { // will be called when it is submitted.
+        
+
+        if(collaborators.includes(res.value)){// found
+            exit0({type: 1});
+        }
+        else{// not found
+            exit0({type: 1});
+        }
     });
 }
 
@@ -1250,6 +1268,7 @@ function transfer41(){
     sendTexts(texts, function(){
         botui.action.text({
             action: {
+                subtype: "email",
                 placeholder: 'Enter the e-mail here'
             }
         }).then(function (res) { // will be called when it is submitted.
@@ -1267,6 +1286,7 @@ function transfer42(){
     sendTexts(texts, function(){
         botui.action.text({
             action: {
+                subtype: "tel",
                 placeholder: 'Enter the mobile number'
             }
         }).then(function (res) { // will be called when it is submitted.
