@@ -184,6 +184,7 @@ function init1(){
     }).then(function(){
         return botui.action.text({
             action: {
+                datatype: "collaborator",
                 placeholder: 'Enter the name here'
             }
         });
@@ -202,6 +203,7 @@ function init3(){
     sendTexts(texts, function(){
         botui.action.text({
             action: {
+                datatype: "location",
                 icon: "map-marker",
                 placeholder: 'Enter the location'
             }

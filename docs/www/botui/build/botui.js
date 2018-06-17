@@ -295,6 +295,7 @@
             };
           }
           else{
+            this._data.action.addMessage = true;
             _handleAction(button.text);
             _actionResolve(defaultActionObj);
           }          
