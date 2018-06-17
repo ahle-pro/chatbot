@@ -6,7 +6,10 @@ var user1 = {
     location: "Rome",    
     nDisconnect: 0,
     nConnect: 0,
-    taskDone: false
+    taskDone: false,
+    passed: {},
+    completed: {},
+    transfered: {}
 };
 
 var user2 = {
@@ -19,10 +22,11 @@ var bot = {
     designer: "https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png",
 }
 
-var current = {back: "", stack: []};
-var passed = {};
+var current = {back: {}, stack: []};
 
 // start
+start();
+
 function start(){
     let params = (new URL(document.location)).searchParams;
     let mode = params.get("mode");
@@ -35,7 +39,6 @@ function start(){
     }
 
 }
-start();
 
 var lvmh = {};
 lvmh.handle_action_button = function(button){
@@ -341,7 +344,8 @@ function connection(){
         connection1();// TODO
     }
     else{
-        
+        debugger;
+        user1.taskDone = (user1.completed.no62 || user1.transfered.no62) && (user1.completed.no64 || user1.transfered.no64);
         if(user1.taskDone){
             connection3();
         }
@@ -354,7 +358,11 @@ function connection(){
 
 function connection1(){
     let texts = [`Hello ${user1.firstname},`, 'Happy to be able to exchange with you a few moments.', `According to my information, you are a Store Planner for Italy, with Emilia Prescci.`];
+    if(user1.passed.connection1)
+        texts = [texts[2]];
+
     sendTexts(texts, function(){
+        user1.passed.connection1=true;
         botui.action.button({
             action: [
                 {
@@ -369,6 +377,10 @@ function connection1(){
         }).then(function(response){
             if(response.value=="confirm"){
                 check2();
+            }
+            else{
+                current.back.answerAnyway = connection1;
+                answerAnyway();
             }
         });
     });
@@ -573,9 +585,15 @@ function store1_1(){
     });
 }
 
+function store1_2(){
+    let texts = [`Please let us know who he/she is!`];
+    
+
+}
+
 function store1_3(){
     let nPoints = 5;
-    if(passed.store14) nPoints = 4;
+    if(user1.passed.store14) nPoints = 4;
     let texts = ["Nice!",`Together, we have to investigate ${nPoints} points of the checklist that have not been covered yet.`];
     let choices = [
         {
@@ -597,7 +615,13 @@ function store1_3(){
                     store1_4();
                     break;
                 case "startRandom":
-                    Math.random() > 0.25 ? no6(): not6();
+                    if(Math.random() > 0.25){
+                        current.back.no6 = "store1_4";
+                        no6();
+                    }else{
+                        current.back.not6 = "store1_4";
+                        not6();
+                    }
                     break;
             }
         });
@@ -629,22 +653,24 @@ function store1_4(){
         }
     ];
 
-    if(passed.store14){
-        texts = [texts[0]];
+    if(user1.passed.store14){
+        texts.shift();
         choices.shift();// remove code of conduct
     }
 
     sendTexts(texts, ()=>{
-        passed.store14 = true;
+        user1.passed.store14 = true;
         botui.action.button({
             action: choices
         })
         .then(function(response){
             switch(response.value){
                 case "6":
+                    current.back.no6 = store1_4;
                     no6();
                     break;
                 default:
+                    current.back.not6 = store1_4;
                     not6();
                     break;
             }
@@ -659,20 +685,8 @@ function no6(){
         "😬"];
     let choices = [];
     
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    })
-    .then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: texts[1]+texts[2]
-        })
-    })    
-    .then(function(){
-        return botui.action.button({
+    sendTexts(texts, function(){
+        botui.action.button({
             action: [
                 { // show only one button
                     text: 'stop this bot',
@@ -687,40 +701,37 @@ function no6(){
                     value: '...'
                 }
             ]
+        }).then(function(response){
+            switch(response.value){
+                case "stop":
+                    exit0({type: 2});
+                    break;
+                case "continue":
+                    no6_2();
+                    break;
+                case "...":
+                    not6();
+                    break;
+            }
         });
-    }).then(function(response){
-        switch(response.value){
-            case "stop":
-                exit0({type: 2});
-                break;
-            case "continue":
-                no6_2();
-                break;
-            case "...":
-                not6();
-                break;
-        }
     });
 }
 
 function no6_2(){
+    if(user1.completed.no62 || user1.transfered.no62){
+        no6_4();
+        return;
+    }
+
     let texts = ["Thank you for keeping me in service!",
         "We have to check where are the existing sensors (light or presence)"];
     let choices = [];
+    if(user1.passed.no62)
+        texts[0] = "Thank you for putting me back into service!";
 
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: texts[1]
-        });
-    }).then(function(){
-        current.back = no6_2;
-        return botui.action.form({
+    sendTexts(texts, function(){
+        user1.passed.no62 = true;
+        botui.action.form({
             action: {
                 placeholder : "I know, they are ...",
                 value: '', 
@@ -739,25 +750,32 @@ function no6_2(){
                 transfer: "transfer",
                 assistance: "assistance"
             },
+        })
+        .then(function(response){
+            switch(response.button){    
+                case 'validate':
+                    user1.completed.no62 = true;
+                    no6_3();
+                    break;
+                case 'readmore':
+                    current.back.readmore = no6_2;                    
+                    readmore();
+                    break;
+                case 'transfer':
+                    current.back.transfer = no6_4;
+                    current.question = "no62";
+                    transfer();
+                    break;
+                case 'differ':
+                    current.back.differ = no6_4;
+                    differ();
+                    break;
+                case 'assistance':
+                    current.back.assistance = no6_2;
+                    assistance();
+                    break;
+            }
         });
-    }).then(function(response){
-        switch(response.button){    
-            case 'validate':
-                no6_3();
-                break;
-            case 'readmore':
-                readmore();
-                break;
-            case 'transfer':
-                transfer();
-                break;
-            case 'differ':
-                differ();
-                break;
-            case 'assistance':
-                assistance();
-                break;
-        }
     });
 }
 
@@ -799,23 +817,21 @@ function no6_3(){
 }
 
 function no6_4(){
+    if(user1.completed.no64 || user1.transfered.no64){
+        exit0({type: 1});
+        return;
+    }
+    
     let texts = ["OK! Let's continue with planning and programing",
         "Is there are some timers to program the extinction of the store?"];
     let choices = [];
+    if(user1.passed.no64)
+        texts[0] = "OK! Let's restart about planning and programing";
 
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: texts[1]
-        });
-    }).then(function(){
+    sendTexts(texts, function(){
+        user1.passed.no64 = true;
         current.back = no6_4;
-        return botui.action.form({
+        botui.action.form({
             action: {
                 placeholder : "I know, they are ...",
                 value: '', 
@@ -834,25 +850,32 @@ function no6_4(){
                 transfer: "transfer",
                 assistance: "assistance"
             },
+        })
+        .then(function(response){
+            switch(response.button){            
+                case 'validate':
+                    user1.completed.no64 = true;
+                    no6_5();
+                    break;
+                case 'readmore':
+                    current.back.readmore = no6_4;
+                    readmore();
+                    break;
+                case 'transfer':
+                    current.back.transfer = function(){exit0({type: 1});};
+                    current.question = "no64";
+                    transfer();
+                    break;
+                case 'differ':
+                    current.back.differ = function(){exit0({type: 1});};
+                    differ();
+                    break;
+                case 'assistance':
+                    current.back.assistance = no6_4;
+                    assistance();
+                    break;
+            }
         });
-    }).then(function(response){
-        switch(response.button){            
-            case 'validate':
-                no6_5();
-                break;
-            case 'readmore':
-                readmore();
-                break;
-            case 'transfer':
-                transfer();
-                break;
-            case 'differ':
-                differ();
-                break;
-            case 'assistance':
-                assistance();
-                break;
-        }
     });
 }
 
@@ -860,18 +883,8 @@ function no6_5(){
     let texts = ["👍","Do you need to take a picture of this?"];
     let choices = [];
 
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts[0]
-    }).then(function(){
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: texts[1]
-        });
-    }).then(function(){
-        return botui.action.button({
+    sendTexts(texts, function(){
+        botui.action.button({
             cssClass: "s1",
             action: [
                 { // show only one button
@@ -883,22 +896,22 @@ function no6_5(){
                     value: 'no'
                 }
             ]
-        });
-    }).then(function(response){
-        switch(response.value){
-            case "yes":
-                addImage({url: "images/store162.jpg", cssClass: "human"}).then(function(){
+        })
+        .then(function(response){
+            switch(response.value){
+                case "yes":
+                    addImage({url: "images/store162.jpg", cssClass: "human"}).then(function(){
+                        exit0({"type": 1});
+                    });
+                    break;
+                case "no":
                     exit0({"type": 1});
-                });
-                break;
-                break;
-            case "no":
-                exit0({"type": 1});
-                break;
-            case 'differ':
-                differ();
-                break;
-        }
+                    break;
+                case 'differ':
+                    differ();
+                    break;
+            }
+        });
     });
 }
 
@@ -914,31 +927,31 @@ function not6(){
             value: 'back'
         }
     ];
-    if(passed.not6){
+    if(user1.passed.not6){
         texts = [texts[2]];
         choices = [choices[1]];
     }
 
     sendTexts(texts,()=>{
-        passed.not6 = true;
+        user1.passed.not6 = true;
         botui.action.button({
             action: choices
         })
         .then(function(response){
             switch(response.value){
                 case "complain":
-                    current.stack.push("store1_4");
+                    current.back.answerAnyway = current.back.not6;
                     answerAnyway();
                     break;
                 case "back":
-                    store1_4();
+                    current.back.not6();
                     break;
             }
         });
     });
 }
 
-function answerAnyway(){
+function answerAnyway(){    
     let texts = [`Sorry, not ready for this task yet.`,"Keep in mind that I am a prototype", "🐣"];    
     let choices = [
         {
@@ -950,18 +963,22 @@ function answerAnyway(){
             value: 'back'
         }
     ];
-    if(passed.answerAnyway){
-        choices = [texts[1]];
+    if(user1.passed.answerAnyway){
+        texts.shift();
+        choices.shift();
     }
 
     sendTexts(texts, function(){
-        passed.answerAnyway=true;
+        user1.passed.answerAnyway=true;
         botui.action.button({
             action: choices
         }).then(function (response) {
             switch (response.value) {
+                case "insure":
+                    exit0({type: 2});
+                    break;
                 case "back":
-                    current.stack.pop()();
+                    current.back.answerAnyway();
                     break;
 
             }
@@ -1021,12 +1038,12 @@ function uploadFile(file, cb){
 
 function assistance(){
     let texts = ["I'll be the most zealous bot, in connection with a human team.", "We will be able to detail the questions and answers.","But for now, I'm not willing to help.","😇"];
-    if(passed.assistance){
+    if(user1.passed.assistance){
         texts = ["Remember... No help at the moment.","😇"];
     }
 
     sendTexts(texts, function(){
-        passed.assistance = true;
+        user1.passed.assistance = true;
         botui.action.button({
             action: [
                 {
@@ -1037,7 +1054,7 @@ function assistance(){
         }).then(function (response) {
             switch (response.value) {
                 case "back":
-                    current.back();
+                    current.back.assistance();
                     break;
 
             }
@@ -1060,7 +1077,7 @@ function readmore(){
             switch (response.value) {
                 case "back":
                     debugger;
-                    current.back();
+                    current.back.readmore();
                     break;
 
             }
@@ -1082,7 +1099,7 @@ function differ(){
         }).then(function (response) {
             switch (response.value) {
                 case "back":
-                    current.back();
+                    current.back.differ();
                     break;
 
             }
@@ -1167,13 +1184,14 @@ function transfer3(){
                 placeholder: 'Enter the fullname here'
             }
         }).then(function (res) { // will be called when it is submitted.
-            console.log(res.value); // will print whatever was typed in the field.
+            let collaborators = ["Abbott Eden","Adams Aloïs","Adamson Emrys","Adcock August","Addams Basil","Adhams Emil","Aindreis Elie","Allan Elias","Allen Félix","Allison Liam","Alyn Hugh","Ambrose Henry","Anderson Adriel","Andrés Eliel","Andrew Ezéchiel","Andrews Zachary","Anew Cameron","Anthony Malone","Apple Lenny","Archdeacon Leon","Archer Leonard","Ash Lewis","Ashley Orion","Atcock Levi","Austen Archibald","Austin Jasper","Aylen Caspar","Aylin Roman","Ayling Caleb","Baker Abel","Bannerman Chad","Baptist Owen","Barber Derek","Barry Charles","Bartholomew Charlie","Beadle Adam","Bearnard Sacha","Beef Tybalt","Bennet Théodore","Benson James","Berkelay Dennis","Berkeley Leander","Bernard Alexander","Bernardson Jackson","Bigg Isaac","Bigs Mia","Bird Emma","Bishop Sofia","Black Hannah","Blacks Emilia","Blackson Anna","Booth Marie","Bowers Mila","Bowman Lina","Bridges Leah","Bridgestone Ben","Brook Paul","Brooks Jonas","Brown Elias","Brythe Leon","Bull Finn","Burgess Noah","Busby Louis","Bushby Lucas","Bush Felix","Bushnell Amelia","Butcher Ava","Cannon Ella","Carlton Emily","Carthew Isabella","Castle Isla","Chaplain Jessica","Charles Mia","Charley Olivia","Cheesmann Poppy","Chicken Charlie","Clerk George","Coalman Harry","Colin Jack","Colins Jacob","Cook Noah","Cooper Oliver","Cordell Oscar","Crossman Thomas","Curtis Williams","Dalton Azra","Daniels Defne","Danielson Ecrin","Davidson Elif","Davis Eylül","Davy Hiranur","Dawkins Miray","Dawson Nehir","Deacon Zehra","Deakin Zeynep","Dean Ahmet","Driver Ayaz","Earl Berat","Eastwood Eymen","Elder Hamza","Ells Mehmet","Fatt Miraç","Field Mohamad","Fish Mustafa","Fishman Ömer","Fitzmartin Yunus Emre","Flanders Yusuf","Fleming Alexandra","Forest Alisa","Forester Anastasia","Francis Anna","Frank Daria","Franklin Elizaveta","Frederick Maria","Freeman Polina","French Sophia","Frent Victoria","Friend Alexander","Fuller Andrey","Gardner Artyom","Garrison Cyril","Gibert Daniil","Gilson Dmitry","Goldsmith Egor","Grabriel Iwan","Greggson Maxim","Griggs Mikhail","Hadcock Eden","Harry Aloïs","Henry Emrys","Hepburn August","Hudson Basil","Huggins Emil","Jacobson Elie","Johnson Elias","Jones Félix","Josephs Liam","Kane Hugh","King Henry","Kitchener Adriel","Knight Eliel","Lambertson Ezéchiel","Lauwrence Zachary","Lawford Cameron","Leigh Malone","Levinson Lenny","Levis Leon","Lindon Leonard","Little Lewis","Mac-Mahon Orion","Mac'Martin Levi","Marsch Archibald","Mary Jasper","Matthew Caspar","Merill Roman","Miller Caleb","Milner Abel","Mogg Chad","Monk Owen","Montgomery Derek","Moore Charles","Morrison Charlie","Nail Adam","Nightingal Sacha","Olivier Tybalt","Parlan Théodore","Person James","Peters Dennis","Potter Leander","Prescott Alexander","Priest Jackson","Robbins Isaac","Roberson Mia","Robertson Emma","Robinson Sofia","Roman Hannah","Rosebury Emilia","Russel Anna","Shepherdson Marie","Sheppe Mila","Shields Lina","Simons Leah","Simpson Ben","Skinner Paul","Slow Jonas","Smith Elias","Spears Leon","Spring Finn","Stephen Noah","Stratton Louis","Strong Lucas","Tempel Felix","Thomson Amelia","Turner Ava","Wheeler Ella","Williams Emily","Wise Isabella","Wolfe Isla","Wolff Jessica","Wood Mia","Yougman Olivia","Young Poppy"];
     
-            if(res.value=="Alain"){// found
+            if(collaborators.includes(res.value)){// found
+                user1.transfered[current.question] = true;
                 transfer5();
             }
             else{// not found
-    
+                transfer4();
             }
         });
     });
@@ -1247,7 +1265,6 @@ function exit0(args){
     let texts = [];
     switch(args.type){
         case 1:
-            user1.taskDone = true;
             texts = ["Thank you! We have no other questions for you at the moment, but I will not fail to contact you for some additional information.", "🤖"];
             break;
         case 2:
