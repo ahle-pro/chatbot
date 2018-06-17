@@ -22,6 +22,8 @@ var bot = {
     designer: "https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png",
 }
 
+let collaborators = ["Abbott Eden","Adams Aloïs","Adamson Emrys","Adcock August","Addams Basil","Adhams Emil","Aindreis Elie","Allan Elias","Allen Félix","Allison Liam","Alyn Hugh","Ambrose Henry","Anderson Adriel","Andrés Eliel","Andrew Ezéchiel","Andrews Zachary","Anew Cameron","Anthony Malone","Apple Lenny","Archdeacon Leon","Archer Leonard","Ash Lewis","Ashley Orion","Atcock Levi","Austen Archibald","Austin Jasper","Aylen Caspar","Aylin Roman","Ayling Caleb","Baker Abel","Bannerman Chad","Baptist Owen","Barber Derek","Barry Charles","Bartholomew Charlie","Beadle Adam","Bearnard Sacha","Beef Tybalt","Bennet Théodore","Benson James","Berkelay Dennis","Berkeley Leander","Bernard Alexander","Bernardson Jackson","Bigg Isaac","Bigs Mia","Bird Emma","Bishop Sofia","Black Hannah","Blacks Emilia","Blackson Anna","Booth Marie","Bowers Mila","Bowman Lina","Bridges Leah","Bridgestone Ben","Brook Paul","Brooks Jonas","Brown Elias","Brythe Leon","Bull Finn","Burgess Noah","Busby Louis","Bushby Lucas","Bush Felix","Bushnell Amelia","Butcher Ava","Cannon Ella","Carlton Emily","Carthew Isabella","Castle Isla","Chaplain Jessica","Charles Mia","Charley Olivia","Cheesmann Poppy","Chicken Charlie","Clerk George","Coalman Harry","Colin Jack","Colins Jacob","Cook Noah","Cooper Oliver","Cordell Oscar","Crossman Thomas","Curtis Williams","Dalton Azra","Daniels Defne","Danielson Ecrin","Davidson Elif","Davis Eylül","Davy Hiranur","Dawkins Miray","Dawson Nehir","Deacon Zehra","Deakin Zeynep","Dean Ahmet","Driver Ayaz","Earl Berat","Eastwood Eymen","Elder Hamza","Ells Mehmet","Fatt Miraç","Field Mohamad","Fish Mustafa","Fishman Ömer","Fitzmartin Yunus Emre","Flanders Yusuf","Fleming Alexandra","Forest Alisa","Forester Anastasia","Francis Anna","Frank Daria","Franklin Elizaveta","Frederick Maria","Freeman Polina","French Sophia","Frent Victoria","Friend Alexander","Fuller Andrey","Gardner Artyom","Garrison Cyril","Gibert Daniil","Gilson Dmitry","Goldsmith Egor","Grabriel Iwan","Greggson Maxim","Griggs Mikhail","Hadcock Eden","Harry Aloïs","Henry Emrys","Hepburn August","Hudson Basil","Huggins Emil","Jacobson Elie","Johnson Elias","Jones Félix","Josephs Liam","Kane Hugh","King Henry","Kitchener Adriel","Knight Eliel","Lambertson Ezéchiel","Lauwrence Zachary","Lawford Cameron","Leigh Malone","Levinson Lenny","Levis Leon","Lindon Leonard","Little Lewis","Mac-Mahon Orion","Mac'Martin Levi","Marsch Archibald","Mary Jasper","Matthew Caspar","Merill Roman","Miller Caleb","Milner Abel","Mogg Chad","Monk Owen","Montgomery Derek","Moore Charles","Morrison Charlie","Nail Adam","Nightingal Sacha","Olivier Tybalt","Parlan Théodore","Person James","Peters Dennis","Potter Leander","Prescott Alexander","Priest Jackson","Robbins Isaac","Roberson Mia","Robertson Emma","Robinson Sofia","Roman Hannah","Rosebury Emilia","Russel Anna","Shepherdson Marie","Sheppe Mila","Shields Lina","Simons Leah","Simpson Ben","Skinner Paul","Slow Jonas","Smith Elias","Spears Leon","Spring Finn","Stephen Noah","Stratton Louis","Strong Lucas","Tempel Felix","Thomson Amelia","Turner Ava","Wheeler Ella","Williams Emily","Wise Isabella","Wolfe Isla","Wolff Jessica","Wood Mia","Yougman Olivia","Young Poppy"];
+
 var current = {back: {}, stack: []};
 
 // start
@@ -145,6 +147,10 @@ function init2(){
                 {
                     text: 'no, reset',
                     value: 'reset'
+                },
+                {
+                    text: 'back to home',
+                    value: 'back'
                 }
             ]
             });
@@ -160,6 +166,9 @@ function init2(){
             case "reset":
                 reset();
                 init();
+                break;
+            case "back":
+                window.location = "home.html";
                 break;
         }
     });
@@ -344,7 +353,6 @@ function connection(){
         connection1();// TODO
     }
     else{
-        debugger;
         user1.taskDone = (user1.completed.no62 || user1.transfered.no62) && (user1.completed.no64 || user1.transfered.no64);
         if(user1.taskDone){
             connection3();
@@ -587,8 +595,23 @@ function store1_1(){
 
 function store1_2(){
     let texts = [`Please let us know who he/she is!`];
-    
 
+    sendTexts(texts, function(){
+        botui.action.text({
+            action: {
+                placeholder: 'Enter the fullname here'
+            }
+        }).then(function (res) { // will be called when it is submitted.
+            
+    
+            if(collaborators.includes(res.value)){// found
+                exit0({type: 1});
+            }
+            else{// not found
+                exit0({type: 1});
+            }
+        });
+    });
 }
 
 function store1_3(){
@@ -1073,7 +1096,6 @@ function readmore(){
         }).then(function (response) {
             switch (response.value) {
                 case "back":
-                    debugger;
                     current.back.readmore();
                     break;
 
@@ -1181,7 +1203,7 @@ function transfer3(){
                 placeholder: 'Enter the fullname here'
             }
         }).then(function (res) { // will be called when it is submitted.
-            let collaborators = ["Abbott Eden","Adams Aloïs","Adamson Emrys","Adcock August","Addams Basil","Adhams Emil","Aindreis Elie","Allan Elias","Allen Félix","Allison Liam","Alyn Hugh","Ambrose Henry","Anderson Adriel","Andrés Eliel","Andrew Ezéchiel","Andrews Zachary","Anew Cameron","Anthony Malone","Apple Lenny","Archdeacon Leon","Archer Leonard","Ash Lewis","Ashley Orion","Atcock Levi","Austen Archibald","Austin Jasper","Aylen Caspar","Aylin Roman","Ayling Caleb","Baker Abel","Bannerman Chad","Baptist Owen","Barber Derek","Barry Charles","Bartholomew Charlie","Beadle Adam","Bearnard Sacha","Beef Tybalt","Bennet Théodore","Benson James","Berkelay Dennis","Berkeley Leander","Bernard Alexander","Bernardson Jackson","Bigg Isaac","Bigs Mia","Bird Emma","Bishop Sofia","Black Hannah","Blacks Emilia","Blackson Anna","Booth Marie","Bowers Mila","Bowman Lina","Bridges Leah","Bridgestone Ben","Brook Paul","Brooks Jonas","Brown Elias","Brythe Leon","Bull Finn","Burgess Noah","Busby Louis","Bushby Lucas","Bush Felix","Bushnell Amelia","Butcher Ava","Cannon Ella","Carlton Emily","Carthew Isabella","Castle Isla","Chaplain Jessica","Charles Mia","Charley Olivia","Cheesmann Poppy","Chicken Charlie","Clerk George","Coalman Harry","Colin Jack","Colins Jacob","Cook Noah","Cooper Oliver","Cordell Oscar","Crossman Thomas","Curtis Williams","Dalton Azra","Daniels Defne","Danielson Ecrin","Davidson Elif","Davis Eylül","Davy Hiranur","Dawkins Miray","Dawson Nehir","Deacon Zehra","Deakin Zeynep","Dean Ahmet","Driver Ayaz","Earl Berat","Eastwood Eymen","Elder Hamza","Ells Mehmet","Fatt Miraç","Field Mohamad","Fish Mustafa","Fishman Ömer","Fitzmartin Yunus Emre","Flanders Yusuf","Fleming Alexandra","Forest Alisa","Forester Anastasia","Francis Anna","Frank Daria","Franklin Elizaveta","Frederick Maria","Freeman Polina","French Sophia","Frent Victoria","Friend Alexander","Fuller Andrey","Gardner Artyom","Garrison Cyril","Gibert Daniil","Gilson Dmitry","Goldsmith Egor","Grabriel Iwan","Greggson Maxim","Griggs Mikhail","Hadcock Eden","Harry Aloïs","Henry Emrys","Hepburn August","Hudson Basil","Huggins Emil","Jacobson Elie","Johnson Elias","Jones Félix","Josephs Liam","Kane Hugh","King Henry","Kitchener Adriel","Knight Eliel","Lambertson Ezéchiel","Lauwrence Zachary","Lawford Cameron","Leigh Malone","Levinson Lenny","Levis Leon","Lindon Leonard","Little Lewis","Mac-Mahon Orion","Mac'Martin Levi","Marsch Archibald","Mary Jasper","Matthew Caspar","Merill Roman","Miller Caleb","Milner Abel","Mogg Chad","Monk Owen","Montgomery Derek","Moore Charles","Morrison Charlie","Nail Adam","Nightingal Sacha","Olivier Tybalt","Parlan Théodore","Person James","Peters Dennis","Potter Leander","Prescott Alexander","Priest Jackson","Robbins Isaac","Roberson Mia","Robertson Emma","Robinson Sofia","Roman Hannah","Rosebury Emilia","Russel Anna","Shepherdson Marie","Sheppe Mila","Shields Lina","Simons Leah","Simpson Ben","Skinner Paul","Slow Jonas","Smith Elias","Spears Leon","Spring Finn","Stephen Noah","Stratton Louis","Strong Lucas","Tempel Felix","Thomson Amelia","Turner Ava","Wheeler Ella","Williams Emily","Wise Isabella","Wolfe Isla","Wolff Jessica","Wood Mia","Yougman Olivia","Young Poppy"];
+            
     
             if(collaborators.includes(res.value)){// found
                 user1.transfered[current.question] = true;
