@@ -689,16 +689,12 @@ function no6(){
         botui.action.button({
             action: [
                 { // show only one button
-                    text: 'stop this bot',
-                    value: 'stop'
-                },
-                { // show only one button
                     text: 'continue',
                     value: 'continue'
                 },
                 { // show only one button
-                    text: '...',
-                    value: '...'
+                    text: 'stop this bot',
+                    value: 'stop'
                 }
             ]
         }).then(function(response){
@@ -710,6 +706,7 @@ function no6(){
                     no6_2();
                     break;
                 case "...":
+
                     not6();
                     break;
             }
@@ -1204,27 +1201,58 @@ function transfer4(){
         botui.action.button({
             action: [
                 { // show only one button
-                    text: 'yes',
-                    value: 'yes'
+                    text: 'e-mail address',
+                    value: 'email'
                 },
                 {
-                    text: 'confirm',
-                    value: 'confirm'
-                },
-                {
-                    text: '...',
-                    value: '...'
+                    text: 'mobile number',
+                    value: 'mobile'
                 }
             ]
         }).then(function(response){
             switch(response.value){
-                case "confirm":
-                    transfer5();
+                case "email":
+                    transfer41();
                     break;
-                case "...":// TODO
-                    exit0({"type": 1});
+                case "mobile":
+                    transfer42();
                     break;
             }
+        });
+    });
+}
+
+function transfer41(){
+    let texts = ["The e-mail address of this contact..."];
+
+    sendTexts(texts, function(){
+        botui.action.text({
+            action: {
+                placeholder: 'Enter the e-mail here'
+            }
+        }).then(function (res) { // will be called when it is submitted.
+            user2.email = res.value;
+
+            user1.transfered[current.question] = true;
+            transfer5();
+        });
+    });
+}
+
+function transfer42(){
+    let texts = ["The mobile number of this contact..."];
+
+    sendTexts(texts, function(){
+        botui.action.text({
+            action: {
+                placeholder: 'Enter the mobile number'
+            }
+        }).then(function (res) { // will be called when it is submitted.
+                
+            user2.mobile = res.value;
+
+            user1.transfered[current.question] = true;
+            transfer5();
         });
     });
 }

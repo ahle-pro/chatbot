@@ -178,6 +178,33 @@
                         <button type="button" class="botui-actions-buttons-button subMenu s2" @click="handle_action_subMenu('close')">✕</button>
                     </div>
                   </div>
+                  <div v-if="action.type == 'form1'">
+                    <form class="botui-actions-form" @submit.prevent="handle_action_form('validate')" :class="action.cssClass">                      
+                        <div class="buttons">
+                          <input type="checkbox" id='c1' class='chk-btn' v-model="action.form1.options[0].checked" />
+                          <label class="botui-actions-buttons-button multiselect" for='c1'>{{action.form.options[0].text}}</label>
+                          <input type="checkbox" id='c2' class='chk-btn' v-model="action.form.options[1].checked"/>
+                          <label class="botui-actions-buttons-button multiselect" for='c2'>{{action.form.options[1].text}}</label>
+                          <input type="checkbox" id='c3' class='chk-btn' v-model="action.form.options[2].checked"/>
+                          <label class="botui-actions-buttons-button multiselect" for='c3'>{{action.form.options[2].text}}</label>
+                        </div>
+                        <div class="buttons">
+                        <button type="submit" class="botui-actions-buttons-button s0">
+                          <span>VALIDATE</span>
+                        </button>
+                        <button type="button" class="botui-actions-buttons-button s2" @click="handle_action_subMenu('open')">
+                          <span>...</span>
+                        </button>
+                        <div>
+                    </form>
+                    <div class="subMenu">
+                        <button v-if="action.form.readmore" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('readmore')">read more</button>
+                        <button v-if="action.form.differ" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('differ')">differ this question</button>
+                        <button v-if="action.form.transfer" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('transfer')">transfer this question</button>
+                        <button v-if="action.form.assistance" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('assistance')">💁assistance</button>
+                        <button type="button" class="botui-actions-buttons-button subMenu s2" @click="handle_action_subMenu('close')">✕</button>
+                    </div>
+                  </div>
                   <div v-if="action.type == 'button'" class="botui-actions-buttons" :class="action.cssClass">
                       <button type="button" :class="button.cssClass" class="botui-actions-buttons-button" v-for=\
                           "button in action.button.buttons" @click="handle_action_button(button)" autofocus>
