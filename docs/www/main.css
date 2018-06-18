@@ -26,7 +26,13 @@ body{
 .human.botui-message-content {
     border-radius: 1em;
     border-top-right-radius: 0px;
+    background-color: #34917a;
+}
+.human.botui-message-content[subtype="qcm"] {
     background-color: #0086c9;
+}
+.human.botui-message-content[subtype="qcu"] {
+    background-color: #A07E8A;
 }
 
 .screen {
@@ -114,6 +120,10 @@ button.s0 {
 button.s2 {
     background-color: #666666;
 }
+.botui-actions-buttons.s2 button{
+    background-color: #666666;
+}
+
 /* subMenu buttons*/
 div.subMenu{
     display: none;
