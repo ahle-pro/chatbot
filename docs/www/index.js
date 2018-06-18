@@ -22,16 +22,16 @@ var bot = {
     designer: "https://raw.githubusercontent.com/ahle-pro/sbt-bot/master/docs/www/images/team.png",
 }
 
-let collaborators = ["Abbott Eden","Adams Aloïs","Adamson Emrys","Adcock August","Addams Basil","Adhams Emil","Aindreis Elie","Allan Elias","Allen Félix","Allison Liam","Alyn Hugh","Ambrose Henry","Anderson Adriel","Andrés Eliel","Andrew Ezéchiel","Andrews Zachary","Anew Cameron","Anthony Malone","Apple Lenny","Archdeacon Leon","Archer Leonard","Ash Lewis","Ashley Orion","Atcock Levi","Austen Archibald","Austin Jasper","Aylen Caspar","Aylin Roman","Ayling Caleb","Baker Abel","Bannerman Chad","Baptist Owen","Barber Derek","Barry Charles","Bartholomew Charlie","Beadle Adam","Bearnard Sacha","Beef Tybalt","Bennet Théodore","Benson James","Berkelay Dennis","Berkeley Leander","Bernard Alexander","Bernardson Jackson","Bigg Isaac","Bigs Mia","Bird Emma","Bishop Sofia","Black Hannah","Blacks Emilia","Blackson Anna","Booth Marie","Bowers Mila","Bowman Lina","Bridges Leah","Bridgestone Ben","Brook Paul","Brooks Jonas","Brown Elias","Brythe Leon","Bull Finn","Burgess Noah","Busby Louis","Bushby Lucas","Bush Felix","Bushnell Amelia","Butcher Ava","Cannon Ella","Carlton Emily","Carthew Isabella","Castle Isla","Chaplain Jessica","Charles Mia","Charley Olivia","Cheesmann Poppy","Chicken Charlie","Clerk George","Coalman Harry","Colin Jack","Colins Jacob","Cook Noah","Cooper Oliver","Cordell Oscar","Crossman Thomas","Curtis Williams","Dalton Azra","Daniels Defne","Danielson Ecrin","Davidson Elif","Davis Eylül","Davy Hiranur","Dawkins Miray","Dawson Nehir","Deacon Zehra","Deakin Zeynep","Dean Ahmet","Driver Ayaz","Earl Berat","Eastwood Eymen","Elder Hamza","Ells Mehmet","Fatt Miraç","Field Mohamad","Fish Mustafa","Fishman Ömer","Fitzmartin Yunus Emre","Flanders Yusuf","Fleming Alexandra","Forest Alisa","Forester Anastasia","Francis Anna","Frank Daria","Franklin Elizaveta","Frederick Maria","Freeman Polina","French Sophia","Frent Victoria","Friend Alexander","Fuller Andrey","Gardner Artyom","Garrison Cyril","Gibert Daniil","Gilson Dmitry","Goldsmith Egor","Grabriel Iwan","Greggson Maxim","Griggs Mikhail","Hadcock Eden","Harry Aloïs","Henry Emrys","Hepburn August","Hudson Basil","Huggins Emil","Jacobson Elie","Johnson Elias","Jones Félix","Josephs Liam","Kane Hugh","King Henry","Kitchener Adriel","Knight Eliel","Lambertson Ezéchiel","Lauwrence Zachary","Lawford Cameron","Leigh Malone","Levinson Lenny","Levis Leon","Lindon Leonard","Little Lewis","Mac-Mahon Orion","Mac'Martin Levi","Marsch Archibald","Mary Jasper","Matthew Caspar","Merill Roman","Miller Caleb","Milner Abel","Mogg Chad","Monk Owen","Montgomery Derek","Moore Charles","Morrison Charlie","Nail Adam","Nightingal Sacha","Olivier Tybalt","Parlan Théodore","Person James","Peters Dennis","Potter Leander","Prescott Alexander","Priest Jackson","Robbins Isaac","Roberson Mia","Robertson Emma","Robinson Sofia","Roman Hannah","Rosebury Emilia","Russel Anna","Shepherdson Marie","Sheppe Mila","Shields Lina","Simons Leah","Simpson Ben","Skinner Paul","Slow Jonas","Smith Elias","Spears Leon","Spring Finn","Stephen Noah","Stratton Louis","Strong Lucas","Tempel Felix","Thomson Amelia","Turner Ava","Wheeler Ella","Williams Emily","Wise Isabella","Wolfe Isla","Wolff Jessica","Wood Mia","Yougman Olivia","Young Poppy"];
-let locations = ["Rome","Milan"];
+var collaborators = ["Abbott Eden","Adams Aloïs","Adamson Emrys","Adcock August","Addams Basil","Adhams Emil","Aindreis Elie","Allan Elias","Allen Félix","Allison Liam","Alyn Hugh","Ambrose Henry","Anderson Adriel","Andrés Eliel","Andrew Ezéchiel","Andrews Zachary","Anew Cameron","Anthony Malone","Apple Lenny","Archdeacon Leon","Archer Leonard","Ash Lewis","Ashley Orion","Atcock Levi","Austen Archibald","Austin Jasper","Aylen Caspar","Aylin Roman","Ayling Caleb","Baker Abel","Bannerman Chad","Baptist Owen","Barber Derek","Barry Charles","Bartholomew Charlie","Beadle Adam","Bearnard Sacha","Beef Tybalt","Bennet Théodore","Benson James","Berkelay Dennis","Berkeley Leander","Bernard Alexander","Bernardson Jackson","Bigg Isaac","Bigs Mia","Bird Emma","Bishop Sofia","Black Hannah","Blacks Emilia","Blackson Anna","Booth Marie","Bowers Mila","Bowman Lina","Bridges Leah","Bridgestone Ben","Brook Paul","Brooks Jonas","Brown Elias","Brythe Leon","Bull Finn","Burgess Noah","Busby Louis","Bushby Lucas","Bush Felix","Bushnell Amelia","Butcher Ava","Cannon Ella","Carlton Emily","Carthew Isabella","Castle Isla","Chaplain Jessica","Charles Mia","Charley Olivia","Cheesmann Poppy","Chicken Charlie","Clerk George","Coalman Harry","Colin Jack","Colins Jacob","Cook Noah","Cooper Oliver","Cordell Oscar","Crossman Thomas","Curtis Williams","Dalton Azra","Daniels Defne","Danielson Ecrin","Davidson Elif","Davis Eylül","Davy Hiranur","Dawkins Miray","Dawson Nehir","Deacon Zehra","Deakin Zeynep","Dean Ahmet","Driver Ayaz","Earl Berat","Eastwood Eymen","Elder Hamza","Ells Mehmet","Fatt Miraç","Field Mohamad","Fish Mustafa","Fishman Ömer","Fitzmartin Yunus Emre","Flanders Yusuf","Fleming Alexandra","Forest Alisa","Forester Anastasia","Francis Anna","Frank Daria","Franklin Elizaveta","Frederick Maria","Freeman Polina","French Sophia","Frent Victoria","Friend Alexander","Fuller Andrey","Gardner Artyom","Garrison Cyril","Gibert Daniil","Gilson Dmitry","Goldsmith Egor","Grabriel Iwan","Greggson Maxim","Griggs Mikhail","Hadcock Eden","Harry Aloïs","Henry Emrys","Hepburn August","Hudson Basil","Huggins Emil","Jacobson Elie","Johnson Elias","Jones Félix","Josephs Liam","Kane Hugh","King Henry","Kitchener Adriel","Knight Eliel","Lambertson Ezéchiel","Lauwrence Zachary","Lawford Cameron","Leigh Malone","Levinson Lenny","Levis Leon","Lindon Leonard","Little Lewis","Mac-Mahon Orion","Mac'Martin Levi","Marsch Archibald","Mary Jasper","Matthew Caspar","Merill Roman","Miller Caleb","Milner Abel","Mogg Chad","Monk Owen","Montgomery Derek","Moore Charles","Morrison Charlie","Nail Adam","Nightingal Sacha","Olivier Tybalt","Parlan Théodore","Person James","Peters Dennis","Potter Leander","Prescott Alexander","Priest Jackson","Robbins Isaac","Roberson Mia","Robertson Emma","Robinson Sofia","Roman Hannah","Rosebury Emilia","Russel Anna","Shepherdson Marie","Sheppe Mila","Shields Lina","Simons Leah","Simpson Ben","Skinner Paul","Slow Jonas","Smith Elias","Spears Leon","Spring Finn","Stephen Noah","Stratton Louis","Strong Lucas","Tempel Felix","Thomson Amelia","Turner Ava","Wheeler Ella","Williams Emily","Wise Isabella","Wolfe Isla","Wolff Jessica","Wood Mia","Yougman Olivia","Young Poppy"];
+var locations = ["Rome","Milan"];
 var current = {back: {}, stack: []};
 
 // start
 start();
 
 function start(){
-    let params = (new URL(document.location)).searchParams;
-    let mode = params.get("mode");
+    var params = (new URL(document.location)).searchParams;
+    var mode = params.get("mode");
 
     if(mode=="init"){
         init();
@@ -82,7 +82,7 @@ function addImage(opts){
 }
 
 function saveChanges(){
-    let storage = localStorage;
+    var storage = localStorage;
 
     storage.setItem("user1", JSON.stringify(user1));
     storage.setItem("user2", JSON.stringify(user2));
@@ -92,7 +92,7 @@ function saveChanges(){
 }
 
 function load(){
-    let storage = localStorage;
+    var storage = localStorage;
     
     user1 = JSON.parse(storage.getItem("user1"));
     user2 = JSON.parse(storage.getItem("user2"));
@@ -117,7 +117,7 @@ function setDefault(){
 }
 
 function init(){
-    let data = localStorage.getItem("user1");
+    var data = localStorage.getItem("user1");
     if(!data){
         init1();
     }
@@ -127,7 +127,7 @@ function init(){
 }
 
 function init2(){
-    let texts = ["Start demo with default values?"];
+    var texts = ["Start demo with default values?"];
     
     botui.message.add({
         delay: 1000,
@@ -175,7 +175,7 @@ function init2(){
 }
 
 function init1(){
-    let text = "The first name of the recipient...";
+    var text = "The first name of the recipient...";
     
     botui.message.add({
         delay: 1000,
@@ -189,7 +189,7 @@ function init1(){
             }
         });
     }).then(function (res) { // will be called when it is submitted.
-        let resValue = res.value;
+        var resValue = res.value;
 
         user1.firstname=resValue;
 
@@ -198,7 +198,7 @@ function init1(){
 }
 
 function init3(){
-    let texts = ["Bot initialization: please enter values ​​for this demo", "His or her location in Italy (city)"];
+    var texts = ["Bot initialization: please enter values ​​for this demo", "His or her location in Italy (city)"];
     
     sendTexts(texts, function(){
         botui.action.text({
@@ -208,11 +208,11 @@ function init3(){
                 placeholder: 'Enter the location'
             }
         }).then(function (res) { // will be called when it is submitted.
-            let resValue = res.value;
+            var resValue = res.value;
 
             user1.location=resValue;
 
-            let texts1 = ["The first name of one of his collaborators..."];
+            var texts1 = ["The first name of one of his collaborators..."];
 
             botui.message.add({
                 delay: 1000,
@@ -225,7 +225,7 @@ function init3(){
                     }
                 });
             }).then(function(res){
-                let resValue = res.value;
+                var resValue = res.value;
 
                 user2.firstname=resValue;
 
@@ -243,7 +243,7 @@ function init3(){
                 });
             })
             .then(function(res){
-                let resValue = res.value;
+                var resValue = res.value;
                 user2.lastname=resValue;
                 
                 return botui.message.add({
@@ -314,7 +314,7 @@ function init3(){
 }
 
 function init4(){
-    let texts = ["Start demo with updated values?"];
+    var texts = ["Start demo with updated values?"];
     
     botui.message.add({
         delay: 1000,
@@ -350,7 +350,7 @@ function connection(){
     load();
     user1.nConnect++;
 
-    let firstRun = user1.nConnect == 1;
+    var firstRun = user1.nConnect == 1;
 
     if(firstRun){
         connection1();// TODO
@@ -368,7 +368,7 @@ function connection(){
 }
 
 function connection1(){
-    let texts = [`Hello ${user1.firstname},`, 'Happy to be able to exchange with you a few moments.', `According to my information, you are a Store Planner for Italy, with Emilia Prescci.`];
+    var texts = [`Hello ${user1.firstname},`, 'Happy to be able to exchange with you a few moments.', `According to my information, you are a Store Planner for Italy, with Emilia Prescci.`];
     if(user1.passed.connection1)
         texts = [texts[2]];
 
@@ -399,7 +399,7 @@ function connection1(){
 }
 
 function connection2(){
-    let texts = [`Welcome back ${user1.firstname},`,`Please enter your password`];
+    var texts = [`Welcome back ${user1.firstname},`,`Please enter your password`];
     sendTexts(texts, ()=>{
         current.waitingPassword = true;
         return botui.action.text({
@@ -419,7 +419,7 @@ function connection2(){
 }
 
 function connection3(){
-    let texts = [`Good news! The remaining points around Rome Etoile store were handled by ${user2.firstname} ${user2.lastname}!`,`No more delayed questions`,`👑`];
+    var texts = [`Good news! The remaining points around Rome Etoile store were handled by ${user2.firstname} ${user2.lastname}!`,`No more delayed questions`,`👑`];
     sendTexts(texts, function(){
         return botui.action.button({
             action: [
@@ -437,7 +437,7 @@ function connection3(){
 }
 
 function check2(){
-    let text = "For security reasons, can you enter your geographical location?";
+    var text = "For security reasons, can you enter your geographical location?";
     
     botui.message.add({
         delay: 1000,
@@ -464,7 +464,7 @@ function check2(){
 }
 
 function check3(){
-    let texts = ["Sorry, but the location saved for you does not match.","Try a second time"];
+    var texts = ["Sorry, but the location saved for you does not match.","Try a second time"];
     
     sendTexts(texts, function(){
         botui.action.text({
@@ -488,7 +488,7 @@ function check3(){
 }
 
 function check4(){
-    let texts = ["I advise you to contact the assistance."];
+    var texts = ["I advise you to contact the assistance."];
     
     sendTexts(texts, function(){
         botui.action.button({
@@ -511,7 +511,7 @@ function check4(){
 }
 
 function check5(){
-    let texts = ["Thank you for this confirmation! Please enter a password to save time on your next connections"];
+    var texts = ["Thank you for this confirmation! Please enter a password to save time on your next connections"];
 
     botui.message.add({
         delay: 1000,
@@ -533,7 +533,7 @@ function check5(){
 }
         
 function intro(){
-    let texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${user2.firstname} ${user2.lastname} who works with you.`];
+    var texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${user2.firstname} ${user2.lastname} who works with you.`];
     botui.message.add({
         delay: 1000,
         loading: true,
@@ -541,7 +541,7 @@ function intro(){
     }).then(function(){
         return addImage({url: user2.url});
     }).then(function (res) { // will be called when it is submitted.
-        let texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
+        var texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
         return botui.message.add({
             delay: 1000,
             loading: true,
@@ -566,7 +566,7 @@ function intro(){
 }
 
 function store1_1(){
-    let texts = [`You are currently in charge of LVMH Rome Etoile store, right?`];
+    var texts = [`You are currently in charge of LVMH Rome Etoile store, right?`];
     sendTexts(texts, ()=>{
         botui.action.button({
             action: [
@@ -601,7 +601,7 @@ function store1_1(){
 }
 
 function store1_2(){
-    let texts = [`Please let us know who he/she is!`];
+    var texts = [`Please var us know who he/she is!`];
 
     botui.action.text({
         action: {
@@ -621,10 +621,10 @@ function store1_2(){
 }
 
 function store1_3(){
-    let nPoints = 5;
+    var nPoints = 5;
     if(user1.passed.store14) nPoints = 4;
-    let texts = ["Nice!",`Together, we have to investigate ${nPoints} points of the checklist that have not been covered yet.`];
-    let choices = [
+    var texts = ["Nice!",`Together, we have to investigate ${nPoints} points of the checklist that have not been covered yet.`];
+    var choices = [
         {
             text: `list the ${nPoints} points pending`,
             value: 'list'
@@ -658,8 +658,8 @@ function store1_3(){
 }
 
 function store1_4(){
-    let texts = ["I am very strong as a robot to recall lists 😉","Which point do you wish to address?"];
-    let choices = [
+    var texts = ["I am very strong as a robot to recall lists 😉","Which point do you wish to address?"];
+    var choices = [
         {
             text: '1 Code of Conduct',
             value: '1'
@@ -709,10 +709,10 @@ function store1_4(){
 
 function no6(){    
 
-    let texts = ["A good part of the effort on power consumption comes from the limitation of the usage that can be planned, programed, or organized.",
+    var texts = ["A good part of the effort on power consumption comes from the limitation of the usage that can be planned, programed, or organized.",
         "I know it as a robot, because you can interrupt me at any time.",
         "😬"];
-    let choices = [];
+    var choices = [];
     
     sendTexts(texts, function(){
         botui.action.button({
@@ -749,9 +749,9 @@ function no6_2(){
         return;
     }
 
-    let texts = ["Thank you for keeping me in service!",
+    var texts = ["Thank you for keeping me in service!",
         "We have to check where are the existing sensors (light or presence)"];
-    let choices = [];
+    var choices = [];
     if(user1.passed.no62)
         texts[0] = "Thank you for putting me back into service!";
 
@@ -806,8 +806,8 @@ function no6_2(){
 }
 
 function no6_3(){
-    let texts = ["👍","Do you need to take a picture of this?"];
-    let choices = [];
+    var texts = ["👍","Do you need to take a picture of this?"];
+    var choices = [];
 
     sendTexts(texts, ()=>{
         current.back = no6_3;
@@ -848,9 +848,9 @@ function no6_4(){
         return;
     }
     
-    let texts = ["OK! Let's continue with planning and programing",
+    var texts = ["OK! Let's continue with planning and programing",
         "Is there are some timers to program the extinction of the store?"];
-    let choices = [];
+    var choices = [];
     if(user1.passed.no64)
         texts[0] = "OK! Let's restart about planning and programing";
 
@@ -906,8 +906,8 @@ function no6_4(){
 }
 
 function no6_5(){
-    let texts = ["👍","Do you need to take a picture of this?"];
-    let choices = [];
+    var texts = ["👍","Do you need to take a picture of this?"];
+    var choices = [];
 
     sendTexts(texts, function(){
         botui.action.button({
@@ -942,8 +942,8 @@ function no6_5(){
 }
 
 function not6(){
-    let texts = [`Sorry, I'm a poor lonesome bot, not yet programed to deepen these points on which I ask you yet!`,"😅","Please try point No.6"];
-    let choices = [
+    var texts = [`Sorry, I'm a poor lonesome bot, not yet programed to deepen these points on which I ask you yet!`,"😅","Please try point No.6"];
+    var choices = [
         {
             text: 'Try to complain to the designers',
             value: 'complain'
@@ -978,8 +978,8 @@ function not6(){
 }
 
 function answerAnyway(){    
-    let texts = [`Sorry, not ready for this task yet.`,"Keep in mind that I am a prototype", "🐣"];    
-    let choices = [
+    var texts = [`Sorry, not ready for this task yet.`,"Keep in mind that I am a prototype", "🐣"];    
+    var choices = [
         {
             text: 'Try to insure against designers',
             value: 'insure'
@@ -1056,14 +1056,14 @@ function uploadFile(file, cb){
     // Response contains stringified JSON
     // Image URL available at response.data.link
     $.ajax(settings).done(function(response) {
-      let link = JSON.parse(response).data.link;
+      var link = JSON.parse(response).data.link;
       console.log(link);
       cb(link);
     });
 }
 
 function assistance(){
-    let texts = ["I'll be the most zealous bot, in connection with a human team.", "We will be able to detail the questions and answers.","But for now, I'm not willing to help.","😇"];
+    var texts = ["I'll be the most zealous bot, in connection with a human team.", "We will be able to detail the questions and answers.","But for now, I'm not willing to help.","😇"];
     if(user1.passed.assistance){
         texts = ["Remember... No help at the moment.","😇"];
     }
@@ -1089,7 +1089,7 @@ function assistance(){
 }
 
 function readmore(){
-    let texts = ["No read more for now", "🐣"];
+    var texts = ["No read more for now", "🐣"];
 
     sendTexts(texts, function(){
         botui.action.button({
@@ -1111,7 +1111,7 @@ function readmore(){
 }
 
 function differ(){
-    let texts = ["You'll have to postpone the idea for this demo!", "⏲️"];
+    var texts = ["You'll have to postpone the idea for this demo!", "⏲️"];
 
     sendTexts(texts, function(){
         botui.action.button({
@@ -1133,7 +1133,7 @@ function differ(){
 }
 
 function transfer(){
-    let texts = ["OK!", "Why do you need to hand over?"];
+    var texts = ["OK!", "Why do you need to hand over?"];
 
     sendTexts(texts, function(){
         botui.action.button({
@@ -1161,7 +1161,7 @@ function transfer(){
 }
 
 function transfer2(){
-    let texts = ["To whom?"];
+    var texts = ["To whom?"];
 
     sendTexts(texts, function(){
         botui.action.button({
@@ -1201,7 +1201,7 @@ function transfer2(){
 }
 
 function transfer3(){
-    let texts = ["Could you spell the full name?"];
+    var texts = ["Could you spell the full name?"];
 
     sendTexts(texts, function(){
         botui.action.text({
@@ -1224,7 +1224,7 @@ function transfer3(){
 }
 
 function transfer4(){
-    let texts = ["Which information could you provide to transfer?"];
+    var texts = ["Which information could you provide to transfer?"];
 
     sendTexts(texts, function(){
         botui.action.button({
@@ -1252,7 +1252,7 @@ function transfer4(){
 }
 
 function transfer41(){
-    let texts = ["The e-mail address of this contact..."];
+    var texts = ["The e-mail address of this contact..."];
 
     sendTexts(texts, function(){
         botui.action.text({
@@ -1270,7 +1270,7 @@ function transfer41(){
 }
 
 function transfer42(){
-    let texts = ["The mobile number of this contact..."];
+    var texts = ["The mobile number of this contact..."];
 
     sendTexts(texts, function(){
         botui.action.text({
@@ -1289,7 +1289,7 @@ function transfer42(){
 }
 
 function transfer5(){
-    let texts = ["📧", "A photo to give a wink to the one who will help you?"];
+    var texts = ["📧", "A photo to give a wink to the one who will help you?"];
 
     sendTexts(texts, function(){
         botui.action.photo({
@@ -1321,7 +1321,7 @@ function transfer5(){
 
 
 function exit0(args){
-    let texts = [];
+    var texts = [];
     switch(args.type){
         case 1:
             texts = ["Thank you! We have no other questions for you at the moment, but I will not fail to contact you for some additional information.", "🤖"];

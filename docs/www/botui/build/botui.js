@@ -283,8 +283,8 @@
             this._data.action.addMessage = false;
             
             document.getElementById("myFile").onchange = function(){
-                let file = this.files[0];
-                //let url = window.URL.createObjectURL(file);
+                var file = this.files[0];
+                //var url = window.URL.createObjectURL(file);
                 uploadFile(file, function(url){
                   defaultActionObj.url = url;
                   addImage({url: url, cssClass: "human"}).then(()=>{
@@ -363,12 +363,12 @@
         },
         handle_action_form: function (button) {
           if(!button) return;
-          let texts = [];
+          var texts = [];
           for (var i = 0; i < this.action.form.options.length; i++) { // Find select title
             if (this.action.form.options[i].checked) 
               texts.push(this.action.form.options[i].text);
           }
-          let msg = "...";
+          var msg = "...";
           if(texts.length>0)
             msg = texts.join(",");
           _handleAction(msg);
@@ -422,7 +422,7 @@
 
     root.Vue.directive('input', {
       inserted: function (el) {
-        let list = [];
+        var list = [];
         if(el.getAttribute("datatype")=="collaborator"){
           list = collaborators;
         }
@@ -430,7 +430,7 @@
           list = locations;
         }
         
-        let html = "";        
+        var html = "";        
         list.forEach((item)=>{
           html+=`<option value="${item}"/>`;
         });
@@ -442,13 +442,13 @@
           maxItems: 5,
         }); */
 
-        /* let search = el;
-        let datalist = document.getElementById("list");
+        /* var search = el;
+        var datalist = document.getElementById("list");
         search.addEventListener('keyup', function handler(event) {
           // remove all 
 
-          let html = "", count = 0;
-          let inputVal = new RegExp(search.value.trim(), 'i');
+          var html = "", count = 0;
+          var inputVal = new RegExp(search.value.trim(), 'i');
           collaborators.forEach((item)=>{
               if (count < 6 && inputVal.test(item)) {
                 count++;
