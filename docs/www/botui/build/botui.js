@@ -287,7 +287,7 @@
                 //var url = window.URL.createObjectURL(file);
                 uploadFile(file, function(url){
                   defaultActionObj.url = url;
-                  addImage({url: url, cssClass: "human"}).then(()=>{
+                  addImage({url: url, cssClass: "human"}).then(function(){
                     _handleAction(button.text);
                     _actionResolve(defaultActionObj);
                   });
@@ -384,12 +384,12 @@
         handle_action_subMenu: function (e) {
           // hide the actions
           if(e=="open"){
-            $(".botui-actions-form").fadeOut(()=>{
+            $(".botui-actions-form").fadeOut(function(){
               $(".subMenu").show().slideDown();
             });
           }
           else{
-            $(".subMenu").fadeOut(()=>{          
+            $(".subMenu").fadeOut(function(){          
               $(".botui-actions-form").show().slideDown();
             });
           }          
