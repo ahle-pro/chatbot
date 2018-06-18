@@ -400,7 +400,7 @@ function connection1(){
 
 function connection2(){
     var texts = [`Welcome back ${user1.firstname},`,`Please enter your password`];
-    sendTexts(texts, ()=>{
+    sendTexts(texts, function(){
         current.waitingPassword = true;
         return botui.action.text({
             action: {
@@ -567,7 +567,7 @@ function intro(){
 
 function store1_1(){
     var texts = [`You are currently in charge of LVMH Rome Etoile store, right?`];
-    sendTexts(texts, ()=>{
+    sendTexts(texts, function(){
         botui.action.button({
             action: [
                 { 
@@ -635,7 +635,7 @@ function store1_3(){
         }
     ];
 
-    sendTexts(texts, ()=>{
+    sendTexts(texts, function(){
         botui.action.button({
             action: choices
         }).then(function(response){
@@ -687,7 +687,7 @@ function store1_4(){
         choices.shift();// remove code of conduct
     }
 
-    sendTexts(texts, ()=>{
+    sendTexts(texts, function(){
         user1.passed.store14 = true;
         botui.action.button({
             action: choices
@@ -809,7 +809,7 @@ function no6_3(){
     var texts = ["👍","Do you need to take a picture of this?"];
     var choices = [];
 
-    sendTexts(texts, ()=>{
+    sendTexts(texts, function(){
         current.back = no6_3;
 
         botui.action.button({
@@ -958,7 +958,7 @@ function not6(){
         choices = [choices[1]];
     }
 
-    sendTexts(texts,()=>{
+    sendTexts(texts,function(){
         user1.passed.not6 = true;
         botui.action.button({
             action: choices
