@@ -431,7 +431,7 @@
         }
         
         var html = "";        
-        list.forEach((item)=>{
+        list.forEach(function(item){
           html+=`<option value="${item}"/>`;
         });
         document.querySelector("#list").innerHTML = html;
