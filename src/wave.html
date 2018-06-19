@@ -1,0 +1,90 @@
+<html>
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+                /*best seen at 1500px or less*/
+        
+                html, body { 
+                    height: 100%; 
+                }
+                    body {                    
+                    overflow: scroll;
+                }
+
+                #head{
+                    background-image: url(home_l.png);
+                    background-size: 100% 100%;
+                    height: 80%;
+                    width: 80%;
+                    position: relative;
+                    
+                }
+        
+                .ocean {
+                    height: 5%;
+                    width:100%;
+                    position:absolute;
+                    bottom:0;
+                    left:0;
+                    background: #015871;
+                }
+        
+                .wave {
+                    background: url(wave.svg) repeat-x;
+                    position: absolute;
+                    top: -198px;
+                    width: 3200px;
+                    height: 198px;
+                    animation: wave 24s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+                    transform: translate3d(0, 0, 0);
+                }
+        
+                .wave:nth-of-type(2) {
+                    top: -220px;
+                    background: url(wave2.svg) repeat-x;
+                    animation: wave 24s cubic-bezier( 0.45, 0.36, 0.53, 0.63) infinite;
+                    animation-delay: 5s;
+                    width: 3200px;
+                    transform: translate3d(0, 0, 0);
+                }
+
+                .wave:nth-of-type(2) {
+                    top: -220px;
+                    background: url(wave2.svg) repeat-x;
+                    animation: wave 24s cubic-bezier( 0.45, 0.36, 0.53, 0.63) infinite;
+                    animation-delay: 5s;
+                    width: 3200px;
+                    transform: translate3d(0, 0, 0);
+                }
+        
+                @keyframes wave {
+                    0% {
+                        margin-left: 0;
+                    }
+                    100% {
+                        margin-left: -1600px;
+                    }
+                }
+        
+                @keyframes swell {
+                    0%, 100% {
+                        transform: translate3d(0,-25px,0);
+                    }
+                    50% {
+                        transform: translate3d(0,5px,0);
+                    }
+                }
+            
+           </style>
+</head>
+<body>
+    <div id="head">
+        <div class="ocean">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>    
+    </div>
+</body>
+</html>
+
+  
