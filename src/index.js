@@ -362,6 +362,7 @@ function init4(){
 function connection(){
     load();
     user1.nConnect++;
+    if(!user1) window.location = "home.html?mode=init";
 
     var firstRun = user1.nConnect == 1;
 
