@@ -7,11 +7,11 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="800"
-   height="198"
+   width="600"
+   height="200"
    version="1.1"
    id="svg11"
-   sodipodi:docname="wave2.svg"
+   sodipodi:docname="wave3.svg"
    inkscape:version="0.92.1 r15371">
   <metadata
      id="metadata15">
@@ -21,7 +21,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -30,22 +30,23 @@
      bordercolor="#666666"
      borderopacity="1"
      objecttolerance="10"
-     gridtolerance="10"
+     gridtolerance="10000"
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1858"
+     inkscape:window-width="1847"
      inkscape:window-height="1057"
      id="namedview13"
      showgrid="true"
      inkscape:pagecheckerboard="true"
-     inkscape:zoom="1.5"
-     inkscape:cx="374.3161"
-     inkscape:cy="99"
-     inkscape:window-x="54"
+     inkscape:zoom="2.1221115"
+     inkscape:cx="309.83888"
+     inkscape:cy="159.90755"
+     inkscape:window-x="1985"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg11">
+     inkscape:current-layer="svg11"
+     showguides="false">
     <inkscape:grid
        type="xygrid"
        id="grid4576" />
@@ -54,11 +55,11 @@
      id="defs7">
     <linearGradient
        id="a"
-       x1="260.31833"
-       x2="288.46085"
-       y1="534.42261"
-       y2="22.741388"
-       gradientTransform="matrix(-1.4213367,0,0,0.35178152,800,0)"
+       x1="230.366"
+       x2="310.10315"
+       y1="463.68292"
+       y2="-104.85177"
+       gradientTransform="matrix(-1.0660025,0,0,0.35178152,600.57073,1.8849151)"
        gradientUnits="userSpaceOnUse">
       <stop
          stop-color="#57BBC1"
@@ -74,8 +75,9 @@
     </linearGradient>
   </defs>
   <path
-     d="M 799.9975,121 C 644.5,121 595.051,-0.25 394.5,0 194.5,0 144.5,121 0,121 v 77 h 800 c 0,0 0,-48 0,-77 z"
+     d="m 600.57073,76.884915 c -150,0 -150,-74.9999999 -300,-74.9999999 -150,0 -150,74.9999999 -300.00000127,74.9999999 V 201.88492 H 600.57073 v 0 z"
      id="path9"
-     style="fill:url(#a);fill-rule:evenodd;stroke-width:0.70710677"
-     inkscape:connector-curvature="0" />
+     style="fill:url(#a);fill-rule:evenodd;stroke-width:0.6123724"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="scccccs" />
 </svg>

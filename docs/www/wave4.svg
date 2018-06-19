@@ -7,11 +7,11 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="800"
+   width="1600"
    height="198"
    version="1.1"
    id="svg11"
-   sodipodi:docname="wave2.svg"
+   sodipodi:docname="wave.svg"
    inkscape:version="0.92.1 r15371">
   <metadata
      id="metadata15">
@@ -21,7 +21,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -34,31 +34,27 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1858"
+     inkscape:window-width="1847"
      inkscape:window-height="1057"
      id="namedview13"
-     showgrid="true"
+     showgrid="false"
      inkscape:pagecheckerboard="true"
-     inkscape:zoom="1.5"
-     inkscape:cx="374.3161"
+     inkscape:zoom="1"
+     inkscape:cx="642.78777"
      inkscape:cy="99"
-     inkscape:window-x="54"
+     inkscape:window-x="1985"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg11">
-    <inkscape:grid
-       type="xygrid"
-       id="grid4576" />
-  </sodipodi:namedview>
+     inkscape:current-layer="svg11" />
   <defs
      id="defs7">
     <linearGradient
        id="a"
-       x1="260.31833"
-       x2="288.46085"
-       y1="534.42261"
-       y2="22.741388"
-       gradientTransform="matrix(-1.4213367,0,0,0.35178152,800,0)"
+       x1="279.31454"
+       x2="281.42522"
+       y1="15.06831"
+       y2="562.84934"
+       gradientTransform="scale(2.8426734,0.35178152)"
        gradientUnits="userSpaceOnUse">
       <stop
          stop-color="#57BBC1"
@@ -74,8 +70,10 @@
     </linearGradient>
   </defs>
   <path
-     d="M 799.9975,121 C 644.5,121 595.051,-0.25 394.5,0 194.5,0 144.5,121 0,121 v 77 h 800 c 0,0 0,-48 0,-77 z"
+     fill="url(#a)"
+     fill-rule="evenodd"
+     d="M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z"
+     transform="matrix(-1 0 0 1 1600 0)"
      id="path9"
-     style="fill:url(#a);fill-rule:evenodd;stroke-width:0.70710677"
-     inkscape:connector-curvature="0" />
+     style="fill:url(#a)" />
 </svg>

@@ -32,54 +32,63 @@
                 .wave {
                     background: url(wave.svg) repeat-x;
                     position: absolute;
-                    top: -198px;
-                    width: 3200px;
+                    top: -12vw;
+                    width: 400%;
                     height: 198px;
                     animation: wave 24s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
                     transform: translate3d(0, 0, 0);
+                    opacity: 0.8;
                 }
         
                 .wave:nth-of-type(2) {
-                    top: -220px;
+                    top: -11vw;
                     background: url(wave2.svg) repeat-x;
                     animation: wave 24s cubic-bezier( 0.45, 0.36, 0.53, 0.63) infinite;
                     animation-delay: 5s;
-                    width: 3200px;
                     transform: translate3d(0, 0, 0);
+                    opacity: 0.8;
                 }
 
-                .wave:nth-of-type(2) {
-                    top: -220px;
-                    background: url(wave2.svg) repeat-x;
-                    animation: wave 24s cubic-bezier( 0.45, 0.36, 0.53, 0.63) infinite;
-                    animation-delay: 5s;
-                    width: 3200px;
+                .wave:nth-of-type(3) {
+                    top: -10vw;
+                    background: url(wave3.svg) repeat-x;
+                    animation: wave2 12s cubic-bezier( 0.45, 0.36, 0.53, 0.63) infinite;
+                    animation-delay: 0;
+                    width: 300vw;
                     transform: translate3d(0, 0, 0);
+                    opacity: 0.8;
+                    
+                    display: initial;
+                    margin-left: -150vw;
                 }
+
+@keyframes wave2 {
+                    0% {
+                        margin-left: -150vw;
+                    }
+                    100% {
+                        margin-left: 0vw;
+                    }
+                }
+
         
                 @keyframes wave {
                     0% {
                         margin-left: 0;
                     }
                     100% {
-                        margin-left: -1600px;
+                        margin-left: -200%;
                     }
                 }
         
-                @keyframes swell {
-                    0%, 100% {
-                        transform: translate3d(0,-25px,0);
-                    }
-                    50% {
-                        transform: translate3d(0,5px,0);
-                    }
-                }
+                
             
            </style>
 </head>
 <body>
     <div id="head">
         <div class="ocean">
+            <div class="wave"></div>
             <div class="wave"></div>
             <div class="wave"></div>
         </div>    
