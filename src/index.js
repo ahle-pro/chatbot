@@ -9,7 +9,8 @@ var user1 = {
     taskDone: false,
     passed: {},
     completed: {},
-    transfered: {}
+    transfered: {},
+    differed: {},
 };
 
 var user2 = {
@@ -23,11 +24,15 @@ var bot = {
 }
 
 var collaborators = ["Abbott Eden","Adams Aloïs","Adamson Emrys","Adcock August","Addams Basil","Adhams Emil","Aindreis Elie","Allan Elias","Allen Félix","Allison Liam","Alyn Hugh","Ambrose Henry","Anderson Adriel","Andrés Eliel","Andrew Ezéchiel","Andrews Zachary","Anew Cameron","Anthony Malone","Apple Lenny","Archdeacon Leon","Archer Leonard","Ash Lewis","Ashley Orion","Atcock Levi","Austen Archibald","Austin Jasper","Aylen Caspar","Aylin Roman","Ayling Caleb","Baker Abel","Bannerman Chad","Baptist Owen","Barber Derek","Barry Charles","Bartholomew Charlie","Beadle Adam","Bearnard Sacha","Beef Tybalt","Bennet Théodore","Benson James","Berkelay Dennis","Berkeley Leander","Bernard Alexander","Bernardson Jackson","Bigg Isaac","Bigs Mia","Bird Emma","Bishop Sofia","Black Hannah","Blacks Emilia","Blackson Anna","Booth Marie","Bowers Mila","Bowman Lina","Bridges Leah","Bridgestone Ben","Brook Paul","Brooks Jonas","Brown Elias","Brythe Leon","Bull Finn","Burgess Noah","Busby Louis","Bushby Lucas","Bush Felix","Bushnell Amelia","Butcher Ava","Cannon Ella","Carlton Emily","Carthew Isabella","Castle Isla","Chaplain Jessica","Charles Mia","Charley Olivia","Cheesmann Poppy","Chicken Charlie","Clerk George","Coalman Harry","Colin Jack","Colins Jacob","Cook Noah","Cooper Oliver","Cordell Oscar","Crossman Thomas","Curtis Williams","Dalton Azra","Daniels Defne","Danielson Ecrin","Davidson Elif","Davis Eylül","Davy Hiranur","Dawkins Miray","Dawson Nehir","Deacon Zehra","Deakin Zeynep","Dean Ahmet","Driver Ayaz","Earl Berat","Eastwood Eymen","Elder Hamza","Ells Mehmet","Fatt Miraç","Field Mohamad","Fish Mustafa","Fishman Ömer","Fitzmartin Yunus Emre","Flanders Yusuf","Fleming Alexandra","Forest Alisa","Forester Anastasia","Francis Anna","Frank Daria","Franklin Elizaveta","Frederick Maria","Freeman Polina","French Sophia","Frent Victoria","Friend Alexander","Fuller Andrey","Gardner Artyom","Garrison Cyril","Gibert Daniil","Gilson Dmitry","Goldsmith Egor","Grabriel Iwan","Greggson Maxim","Griggs Mikhail","Hadcock Eden","Harry Aloïs","Henry Emrys","Hepburn August","Hudson Basil","Huggins Emil","Jacobson Elie","Johnson Elias","Jones Félix","Josephs Liam","Kane Hugh","King Henry","Kitchener Adriel","Knight Eliel","Lambertson Ezéchiel","Lauwrence Zachary","Lawford Cameron","Leigh Malone","Levinson Lenny","Levis Leon","Lindon Leonard","Little Lewis","Mac-Mahon Orion","Mac'Martin Levi","Marsch Archibald","Mary Jasper","Matthew Caspar","Merill Roman","Miller Caleb","Milner Abel","Mogg Chad","Monk Owen","Montgomery Derek","Moore Charles","Morrison Charlie","Nail Adam","Nightingal Sacha","Olivier Tybalt","Parlan Théodore","Person James","Peters Dennis","Potter Leander","Prescott Alexander","Priest Jackson","Robbins Isaac","Roberson Mia","Robertson Emma","Robinson Sofia","Roman Hannah","Rosebury Emilia","Russel Anna","Shepherdson Marie","Sheppe Mila","Shields Lina","Simons Leah","Simpson Ben","Skinner Paul","Slow Jonas","Smith Elias","Spears Leon","Spring Finn","Stephen Noah","Stratton Louis","Strong Lucas","Tempel Felix","Thomson Amelia","Turner Ava","Wheeler Ella","Williams Emily","Wise Isabella","Wolfe Isla","Wolff Jessica","Wood Mia","Yougman Olivia","Young Poppy"];
+var lastnames = ["Eden","Aloïs","Emrys","August","Basil","Emil","Elie","Elias","Félix","Liam","Hugh","Henry","Adriel","Eliel","Ezéchiel","Zachary","Cameron","Malone","Lenny","Leon","Leonard","Lewis","Orion","Levi","Archibald","Jasper","Caspar","Roman","Caleb","Abel","Chad","Owen","Derek","Charles","Charlie","Adam","Sacha","Tybalt","Théodore","James","Dennis","Leander","Alexander","Jackson","Isaac","Mia","Emma","Sofia","Hannah","Emilia","Anna","Marie","Mila","Lina","Leah","Ben","Paul","Jonas","Elias","Leon","Finn","Noah","Louis","Lucas","Felix","Amelia","Ava","Ella","Emily","Isabella","Isla","Jessica","Mia","Olivia","Poppy","Charlie","George","Harry","Jack","Jacob","Noah","Oliver","Oscar","Thomas","Williams","Azra","Defne","Ecrin","Elif","Eylül","Hiranur","Miray","Nehir","Zehra","Zeynep","Ahmet","Ayaz","Berat","Eymen","Hamza","Mehmet","Miraç","Mohamad","Mustafa","Ömer","YunusEmre","Yusuf","Alexandra","Alisa","Anastasia","Anna","Daria","Elizaveta","Maria","Polina","Sophia","Victoria","Alexander","Andrey","Artyom","Cyril","Daniil","Dmitry","Egor","Iwan","Maxim","Mikhail","Eden","Aloïs","Emrys","August","Basil","Emil","Elie","Elias","Félix","Liam","Hugh","Henry","Adriel","Eliel","Ezéchiel","Zachary","Cameron","Malone","Lenny","Leon","Leonard","Lewis","Orion","Levi","Archibald","Jasper","Caspar","Roman","Caleb","Abel","Chad","Owen","Derek","Charles","Charlie","Adam","Sacha","Tybalt","Théodore","James","Dennis","Leander","Alexander","Jackson","Isaac","Mia","Emma","Sofia","Hannah","Emilia","Anna","Marie","Mila","Lina","Leah","Ben","Paul","Jonas","Elias","Leon","Finn","Noah","Louis","Lucas","Felix","Amelia","Ava","Ella","Emily","Isabella","Isla","Jessica","Mia","Olivia","Poppy"];
+var firstnames = ["Abbott","Adams","Adamson","Adcock","Addams","Adhams","Aindreis","Allan","Allen","Allison","Alyn","Ambrose","Anderson","Andrés","Andrew","Andrews","Anew","Anthony","Apple","Archdeacon","Archer","Ash","Ashley","Atcock","Austen","Austin","Aylen","Aylin","Ayling","Baker","Bannerman","Baptist","Barber","Barry","Bartholomew","Beadle","Bearnard","Beef","Bennet","Benson","Berkelay","Berkeley","Bernard","Bernardson","Bigg","Bigs","Bird","Bishop","Black","Blacks","Blackson","Booth","Bowers","Bowman","Bridges","Bridgestone","Brook","Brooks","Brown","Brythe","Bull","Burgess","Busby","Bushby","Bush","Bushnell","Butcher","Cannon","Carlton","Carthew","Castle","Chaplain","Charles","Charley","Cheesmann","Chicken","Clerk","Coalman","Colin","Colins","Cook","Cooper","Cordell","Crossman","Curtis","Dalton","Daniels","Danielson","Davidson","Davis","Davy","Dawkins","Dawson","Deacon","Deakin","Dean","Driver","Earl","Eastwood","Elder","Ells","Fatt","Field","Fish","Fishman","Fitzmartin","Flanders","Fleming","Forest","Forester","Francis","Frank","Franklin","Frederick","Freeman","French","Frent","Friend","Fuller","Gardner","Garrison","Gibert","Gilson","Goldsmith","Grabriel","Greggson","Griggs","Hadcock","Harry","Henry","Hepburn","Hudson","Huggins","Jacobson","Johnson","Jones","Josephs","Kane","King","Kitchener","Knight","Lambertson","Lauwrence","Lawford","Leigh","Levinson","Levis","Lindon","Little","Mac-Mahon","Mac'Martin","Marsch","Mary","Matthew","Merill","Miller","Milner","Mogg","Monk","Montgomery","Moore","Morrison","Nail","Nightingal","Olivier","Parlan","Person","Peters","Potter","Prescott","Priest","Robbins","Roberson","Robertson","Robinson","Roman","Rosebury","Russel","Shepherdson","Sheppe","Shields","Simons","Simpson","Skinner","Slow","Smith","Spears","Spring","Stephen","Stratton","Strong","Tempel","Thomson","Turner","Wheeler","Williams","Wise","Wolfe","Wolff","Wood","Yougman","Young"];
 var locations = ["Rome","Milan"];
+var mobiles = ["+390661969084", ];
 var current = {back: {}, stack: []};
 
 // start
 start();
+//init1();
 
 function start(){
     var getUrlParameter = function getUrlParameter(sParam) {
@@ -110,6 +115,8 @@ function load(){
     user1 = JSON.parse(storage.getItem("user1"));
     user2 = JSON.parse(storage.getItem("user2"));
     bot = JSON.parse(storage.getItem("bot"));
+    if(!user1.differed)
+        user1.differed = {};
 }
 
 function reset(){
@@ -197,7 +204,7 @@ function init1(){
     }).then(function(){
         return botui.action.text({
             action: {
-                datatype: "collaborator",
+                datatype: "firstname",
                 placeholder: 'Enter the name here'
             }
         });
@@ -234,6 +241,7 @@ function init3(){
             }).then(function(){
                 return botui.action.text({
                     action: {
+                        datatype: "firstname",
                         placeholder: 'Enter the first name'
                     }
                 });
@@ -251,6 +259,7 @@ function init3(){
             .then(function(){
                 return botui.action.text({
                     action: {
+                        datatype: "lastname",
                         placeholder: 'Enter the last name'
                     }
                 });
@@ -421,6 +430,7 @@ function connection2(){
                 placeholder: 'Enter your password'
             }
         }).then(function(response){
+            debugger;
             if(current.password==user1.password){
                 intro();
             }
@@ -546,8 +556,23 @@ function check5(){
         intro();
     });
 }
-        
+
 function intro(){
+    var firstRun = user1.nConnect == 1;
+
+    if(firstRun){
+        intro1();// TODO
+    }
+    else{
+        user1.taskDone = (user1.completed.no62 || user1.transfered.no62) && (user1.completed.no64 || user1.transfered.no64);
+        
+        intro2();
+        
+    }
+
+}
+        
+function intro1(){
     var texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${user2.firstname} ${user2.lastname} who works with you.`];
     botui.message.add({
         delay: 1000,
@@ -578,6 +603,48 @@ function intro(){
         if(response.value=="continue"){
             store1_1();
         }
+    });
+}
+
+function intro2(){
+    var texts = ["👌",`With what will you take back to Rome Etoile store?`];
+    var choices = [
+        { 
+            text: 'Return to the checklist',
+            value: 'checklist'
+        }
+    ];
+
+    if(user1.differed && Object.keys(user1.differed).length > 0){
+        choices.push(
+            { 
+                text: "Consult the questions I've differed",
+                value: 'questions'
+            });
+    }
+
+    sendTexts(texts, function(){
+        botui.action.button({
+            action: choices
+            })
+        .then(function(response){
+            switch(response.value){
+                case "checklist":
+                    store1_4();
+                    break;
+                case "questions":
+                    if(user1.differed && user1.differed.no62){
+                        no6_2();
+                    }
+                    else if(user1.differed && user1.differed.no64){
+                        no6_4();
+                    }
+                    else{
+                        exit0({"type": 1});
+                    }
+                    break;
+            }
+        });
     });
 }
 
@@ -662,7 +729,7 @@ function store1_3(){
                     store1_4();
                     break;
                 case "startRandom":
-                    if(Math.random() > 0.25){
+                    if(Math.random() > 0.5){
                         current.back.no6 = "store1_4";
                         no6();
                     }else{
@@ -812,6 +879,8 @@ function no6_2(){
                     transfer();
                     break;
                 case 'differ':
+                    debugger;
+                    user1.differed.no62 = true;
                     current.back.differ = no6_4;
                     differ();
                     break;
@@ -912,6 +981,7 @@ function no6_4(){
                     transfer();
                     break;
                 case 'differ':
+                    user1.differed.no64 = true;
                     current.back.differ = function(){exit0({type: 1});};
                     differ();
                     break;
@@ -997,21 +1067,15 @@ function not6(){
     });
 }
 
-function answerAnyway(){    
+function answerAnyway(){
     var texts = [`Sorry, not ready for this task yet.`,"Keep in mind that I am a prototype", "🐣"];    
-    var choices = [
-        {
-            text: 'Try to insure against designers',
-            value: 'insure'
-        }
-        ,{
+    var choices = [{
             text: 'go back',
             value: 'back'
         }
     ];
     if(user1.passed.answerAnyway){
         texts.shift();
-        choices.shift();
     }
 
     sendTexts(texts, function(){
@@ -1287,25 +1351,34 @@ function transfer41(){
             user2.email = res.value;
 
             user1.transfered[current.question] = true;
+            if(user1.differed)
+                delete user1.differed[current.question];
+
             transfer5();
         });
     });
 }
 
 function transfer42(){
-    var texts = ["The mobile number of this contact..."];
+    var texts = ["The mobile number of this contact...with international phone format"];
 
     sendTexts(texts, function(){
         botui.action.text({
             action: {
+                datatype: "mobile",
                 subtype: "tel",
-                placeholder: 'Enter the mobile number'
+                pattern: "^\\+[1-9]{1}[0-9]{3,14}$",
+                placeholder: '+00 00000xxxxx',
+
             }
         }).then(function (res) { // will be called when it is submitted.
                 
             user2.mobile = res.value;
 
             user1.transfered[current.question] = true;
+            if(user1.differed)
+                delete user1.differed[current.question];
+
             transfer5();
         });
     });

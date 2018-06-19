@@ -66,12 +66,12 @@
          stop-opacity=".25"
          offset="0%"
          id="stop2"
-         style="stop-color:#ffffff;stop-opacity:1" />
+         style="stop-color:#ffffff;stop-opacity:0.25" />
       <stop
          stop-color="#015871"
          offset="100%"
          id="stop4"
-         style="stop-color:#e6e6e6;stop-opacity:0.26086956" />
+         style="stop-color:#ffffff;stop-opacity:1" />
     </linearGradient>
   </defs>
   <path
