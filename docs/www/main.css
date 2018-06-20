@@ -142,7 +142,10 @@ div.subMenu{
 /* QCM */
 .botui-actions-form .buttons{
     margin: 0 auto;
-    width: fit-content;
+
+    width: intrinsic;/* Safari/WebKit uses a non-standard name */
+    width: -moz-max-content;/* Firefox/Gecko */
+    width: -webkit-max-content;/* Chrome */
 }
 
 input[type="checkbox"]{
@@ -156,7 +159,11 @@ button.botui-actions-buttons-button{
 /* text input*/
 .botui-actions-text{
     background-color: #EFEEED;
-    width: fit-content;
+    
+    width: intrinsic;/* Safari/WebKit uses a non-standard name */
+    width: -moz-max-content;/* Firefox/Gecko */
+    width: -webkit-max-content;/* Chrome */
+    
     padding: 0.5em;
     text-align: right;
 }
@@ -230,7 +237,10 @@ button.botui-actions-buttons-button{
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: fit-content;
+
+    width: intrinsic;/* Safari/WebKit uses a non-standard name */
+    width: -moz-max-content;/* Firefox/Gecko */
+    width: -webkit-max-content;/* Chrome */
 }
 .botui-actions-buttons-button{
     display: block;
