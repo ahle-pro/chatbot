@@ -341,7 +341,7 @@ button{
 .wave {
     background-image: url(wave.svg);
     background-repeat: repeat-x;
-    background-size: auto 15vw;
+    background-size: auto 100%;
     position: absolute;
     bottom: 0vw;
     width: 400%;
