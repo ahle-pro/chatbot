@@ -309,7 +309,7 @@
     		handle_action_text: function () {
           if(!this.action.text.value) return;
           // hooks
-          if(lvmh.handle_action_text(this.action)){                       
+          if(lvmh.handle_action_text(this.action)){                     
             _handleAction(this.action.text.value);
           }
           
@@ -376,7 +376,7 @@
           }
           var msg = "...";
           var subtype = "";
-          if(texts.length>0){            
+          if(texts.length>0 && button == "validate"){            
             msg = texts.join(",");
             subtype = "qcm";
           }

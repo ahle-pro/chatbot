@@ -530,23 +530,20 @@ function check4(){
 
 function check5(){
     var texts = ["Thank you for this confirmation!", "Please enter a password to save time on your next connections"];
-
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts.join("<br/>")
-    }).then(function(){
+    
+    sendTexts(texts, function(){
         current.waitingPassword = true;
-        return botui.action.text({
+        botui.action.text({
             action: {
-                placeholder: 'Enter your password'
+                placeholder: 'Type here'
             }
-        });
-    }).then(function (res) { // will be called when it is submitted.
-        user1.password = current.password;
-        saveChanges();
+        })
+        .then(function (res) { // will be called when it is submitted.
+            user1.password = current.password;
+            saveChanges();
 
-        intro();
+            intro();
+        });
     });
 }
 
@@ -566,13 +563,14 @@ function intro(){
 }
         
 function intro1(){
-    var texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${user2.firstname} ${user2.lastname} who works with you.`];
-    botui.message.add({
-        delay: 1000,
-        loading: true,
-        content: texts.join("<br/>")
-    }).then(function(){
-        return addImage({url: user2.url});
+    addImage({url: user2.url})
+    .then(function(){
+        var texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${user2.firstname} ${user2.lastname} who works with you.`];
+        return botui.message.add({
+            delay: 1000,
+            loading: true,
+            content: texts.join("<br/>")
+        });
     })
     .then(function(){
         return botui.action.button({
@@ -586,15 +584,15 @@ function intro1(){
             });
     }).then(function(response){
         if(response.value=="continue"){
-            var texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
+            return addImage({url: bot.designer});
+        }
+    }).then(function(){        
+        var texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
             return botui.message.add({
                 delay: 1000,
                 loading: true,
                 content: texts1.join("<br/>")
             });
-        }
-    }).then(function(){
-        return addImage({url: bot.designer});
     }).then(function(){
         return botui.action.button({
             cssClass: "s2",
@@ -695,7 +693,7 @@ function store1_2(){
         botui.action.text({
             action: {
                 datatype: "collaborator",
-                placeholder: 'Enter the fullname here'
+                placeholder: 'Type here'
             }
         }).then(function (res) { // will be called when it is submitted.
             debugger;
@@ -1208,19 +1206,19 @@ function readmore(){
 }
 
 function differ(){
-    var texts = ["You’ll have to postpone the idea to postpone for this demo!", "⏲️"];
+    var texts = ["You will have to postpone the idea to postpone for this demo!", "⏲️"];
 
     sendTexts(texts, function(){
         botui.action.button({
             action: [
                 {
-                    text: 'go back',
-                    value: 'back'
+                    text: 'continue',
+                    value: 'continue'
                 }
             ]
         }).then(function (response) {
             switch (response.value) {
-                case "back":
+                case "continue":
                     current.back.differ();
                     break;
 
@@ -1304,7 +1302,7 @@ function transfer3(){
         botui.action.text({
             action: {
                 datatype: "collaborator",
-                placeholder: 'Enter the fullname here'
+                placeholder: 'Type here'
             }
         }).then(function (res) { // will be called when it is submitted.
             
@@ -1349,13 +1347,13 @@ function transfer4(){
 }
 
 function transfer41(){
-    var texts = ["The e-mail address of this contact..."];
+    var texts = ["OK, let me know the e-mail address of the contact"];
 
     sendTexts(texts, function(){
         botui.action.text({
             action: {
                 subtype: "email",
-                placeholder: 'Enter the e-mail here'
+                placeholder: 'Type here'
             }
         }).then(function (res) { // will be called when it is submitted.
             user2.email = res.value;
@@ -1370,7 +1368,7 @@ function transfer41(){
 }
 
 function transfer42(){
-    var texts = ["The mobile number of this contact...with international phone format"];
+    var texts = ["OK, let me know the phone number"];
 
     sendTexts(texts, function(){
         botui.action.text({
@@ -1378,7 +1376,7 @@ function transfer42(){
                 datatype: "mobile",
                 subtype: "tel",
                 pattern: "^\\+[1-9]{1}[0-9]{3,14}$",
-                placeholder: '+00 00000xxxxx',
+                placeholder: '+00 0000000000',
 
             }
         }).then(function (res) { // will be called when it is submitted.
