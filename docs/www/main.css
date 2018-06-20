@@ -59,7 +59,7 @@ body{
 .head{
     background-image: url(images/head.png);
     width: 100%;
-    height: 25vw;
+    height: 22vw;
     background-size: 100% 100%;
     position: relative;
     overflow: hidden;
@@ -67,12 +67,12 @@ body{
 
 .bot{
     background-image: url(images/ico_bot.png);
-    width: 15vw;
-    height: 15vw;
+    width: 20vw;
+    height: 20vw;
     background-size: 100% 100%;
     position: relative;
     left: 42%;
-    top: 5vw;        
+    top: 2vw;        
 }
 
 .botui-actions-buttons-button{
@@ -163,7 +163,7 @@ button.botui-actions-buttons-button{
     width: intrinsic;/* Safari/WebKit uses a non-standard name */
     width: -moz-max-content;/* Firefox/Gecko */
     width: -webkit-max-content;/* Chrome */
-    
+
     padding: 0.5em;
     text-align: right;
 }
