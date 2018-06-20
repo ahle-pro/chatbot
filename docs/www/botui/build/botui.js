@@ -297,9 +297,17 @@
           if (texts.length > 0 && button == "validate") {
             msg = texts.join(",");
             subtype = "qcm";
+            texts.forEach(function(item) {
+              _interface.message.human({
+                delay: 100,
+                content: item,
+                subtype: subtype
+              });
+            });
+            _instance.action.show = !_instance.action.autoHide;
+          } else {
+            _handleAction(msg, subtype);
           }
-
-          _handleAction(msg, subtype);
 
           _actionResolve({
             type: "form",
@@ -362,12 +370,13 @@
             break;
           case "mobile":
             list = mobiles;
-
+            break;
           case "firstname":
             list = firstnames;
-
+            break;
           case "lastname":
             list = lastnames;
+            break;
         }
 
         var html = "";

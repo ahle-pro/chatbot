@@ -544,10 +544,6 @@ function init3() {
                 {
                   text: "no",
                   value: "no"
-                },
-                {
-                  text: "use default",
-                  value: "default"
                 }
               ]
             });
@@ -664,25 +660,30 @@ function connection1() {
 }
 
 function connection2() {
-  var texts = [
-    "Welcome back " + user1.firstname + ",",
-    "Please enter your password"
-  ];
+  var texts = ["Welcome back " + user1.firstname + ","];
   sendTexts(texts, function() {
-    current.waitingPassword = true;
-    return botui.action
-      .text({
-        action: {
-          placeholder: "Enter your password"
-        }
-      })
-      .then(function(response) {
-        if (current.password == user1.password) {
-          intro();
-        } else {
-          check2();
-        }
+    if (user1.enterPass) {
+      var texts1 = ["Please enter your password"];
+      sendTexts(texts1, function() {
+        current.waitingPassword = true;
+        return botui.action
+          .text({
+            action: {
+              placeholder: "Enter your password"
+            }
+          })
+          .then(function(response) {
+            debugger;
+            if (current.password == user1.password) {
+              intro();
+            } else {
+              check2();
+            }
+          });
       });
+    } else {
+      check2();
+    }
   });
 }
 
@@ -801,6 +802,7 @@ function check5() {
       .then(function(res) {
         // will be called when it is submitted.
         user1.password = current.password;
+        user1.enterPass = true;
         saveChanges();
 
         intro();
@@ -1018,10 +1020,12 @@ function store1_3() {
             break;
           case "startRandom":
             if (Math.random() > 0.5) {
-              current.back.no6 = "store1_4";
-              no6();
+              current.back.no6 = store1_4;
+              sendTexts(["#6. Sensors and Timers"], function() {
+                no6();
+              });
             } else {
-              current.back.not6 = "store1_4";
+              current.back.not6 = store1_4;
               not6();
             }
             break;
@@ -1091,7 +1095,6 @@ function no6() {
     "😬"
   ];
   var choices = [];
-  debugger;
   if (user1.nDisconnect > 0) {
     texts.splice(2, 0, "... and you already did it elsewhere!");
   }
