@@ -24,10 +24,10 @@ var bot = {
 }
 
 var collaborators = ["Abbott Eden","Adams Aloïs","Adamson Emrys","Adcock August","Addams Basil","Adhams Emil","Aindreis Elie","Allan Elias","Allen Félix","Allison Liam","Alyn Hugh","Ambrose Henry","Anderson Adriel","Andrés Eliel","Andrew Ezéchiel","Andrews Zachary","Anew Cameron","Anthony Malone","Apple Lenny","Archdeacon Leon","Archer Leonard","Ash Lewis","Ashley Orion","Atcock Levi","Austen Archibald","Austin Jasper","Aylen Caspar","Aylin Roman","Ayling Caleb","Baker Abel","Bannerman Chad","Baptist Owen","Barber Derek","Barry Charles","Bartholomew Charlie","Beadle Adam","Bearnard Sacha","Beef Tybalt","Bennet Théodore","Benson James","Berkelay Dennis","Berkeley Leander","Bernard Alexander","Bernardson Jackson","Bigg Isaac","Bigs Mia","Bird Emma","Bishop Sofia","Black Hannah","Blacks Emilia","Blackson Anna","Booth Marie","Bowers Mila","Bowman Lina","Bridges Leah","Bridgestone Ben","Brook Paul","Brooks Jonas","Brown Elias","Brythe Leon","Bull Finn","Burgess Noah","Busby Louis","Bushby Lucas","Bush Felix","Bushnell Amelia","Butcher Ava","Cannon Ella","Carlton Emily","Carthew Isabella","Castle Isla","Chaplain Jessica","Charles Mia","Charley Olivia","Cheesmann Poppy","Chicken Charlie","Clerk George","Coalman Harry","Colin Jack","Colins Jacob","Cook Noah","Cooper Oliver","Cordell Oscar","Crossman Thomas","Curtis Williams","Dalton Azra","Daniels Defne","Danielson Ecrin","Davidson Elif","Davis Eylül","Davy Hiranur","Dawkins Miray","Dawson Nehir","Deacon Zehra","Deakin Zeynep","Dean Ahmet","Driver Ayaz","Earl Berat","Eastwood Eymen","Elder Hamza","Ells Mehmet","Fatt Miraç","Field Mohamad","Fish Mustafa","Fishman Ömer","Fitzmartin Yunus Emre","Flanders Yusuf","Fleming Alexandra","Forest Alisa","Forester Anastasia","Francis Anna","Frank Daria","Franklin Elizaveta","Frederick Maria","Freeman Polina","French Sophia","Frent Victoria","Friend Alexander","Fuller Andrey","Gardner Artyom","Garrison Cyril","Gibert Daniil","Gilson Dmitry","Goldsmith Egor","Grabriel Iwan","Greggson Maxim","Griggs Mikhail","Hadcock Eden","Harry Aloïs","Henry Emrys","Hepburn August","Hudson Basil","Huggins Emil","Jacobson Elie","Johnson Elias","Jones Félix","Josephs Liam","Kane Hugh","King Henry","Kitchener Adriel","Knight Eliel","Lambertson Ezéchiel","Lauwrence Zachary","Lawford Cameron","Leigh Malone","Levinson Lenny","Levis Leon","Lindon Leonard","Little Lewis","Mac-Mahon Orion","Mac'Martin Levi","Marsch Archibald","Mary Jasper","Matthew Caspar","Merill Roman","Miller Caleb","Milner Abel","Mogg Chad","Monk Owen","Montgomery Derek","Moore Charles","Morrison Charlie","Nail Adam","Nightingal Sacha","Olivier Tybalt","Parlan Théodore","Person James","Peters Dennis","Potter Leander","Prescott Alexander","Priest Jackson","Robbins Isaac","Roberson Mia","Robertson Emma","Robinson Sofia","Roman Hannah","Rosebury Emilia","Russel Anna","Shepherdson Marie","Sheppe Mila","Shields Lina","Simons Leah","Simpson Ben","Skinner Paul","Slow Jonas","Smith Elias","Spears Leon","Spring Finn","Stephen Noah","Stratton Louis","Strong Lucas","Tempel Felix","Thomson Amelia","Turner Ava","Wheeler Ella","Williams Emily","Wise Isabella","Wolfe Isla","Wolff Jessica","Wood Mia","Yougman Olivia","Young Poppy"];
-var lastnames = ["Eden","Aloïs","Emrys","August","Basil","Emil","Elie","Elias","Félix","Liam","Hugh","Henry","Adriel","Eliel","Ezéchiel","Zachary","Cameron","Malone","Lenny","Leon","Leonard","Lewis","Orion","Levi","Archibald","Jasper","Caspar","Roman","Caleb","Abel","Chad","Owen","Derek","Charles","Charlie","Adam","Sacha","Tybalt","Théodore","James","Dennis","Leander","Alexander","Jackson","Isaac","Mia","Emma","Sofia","Hannah","Emilia","Anna","Marie","Mila","Lina","Leah","Ben","Paul","Jonas","Elias","Leon","Finn","Noah","Louis","Lucas","Felix","Amelia","Ava","Ella","Emily","Isabella","Isla","Jessica","Mia","Olivia","Poppy","Charlie","George","Harry","Jack","Jacob","Noah","Oliver","Oscar","Thomas","Williams","Azra","Defne","Ecrin","Elif","Eylül","Hiranur","Miray","Nehir","Zehra","Zeynep","Ahmet","Ayaz","Berat","Eymen","Hamza","Mehmet","Miraç","Mohamad","Mustafa","Ömer","YunusEmre","Yusuf","Alexandra","Alisa","Anastasia","Anna","Daria","Elizaveta","Maria","Polina","Sophia","Victoria","Alexander","Andrey","Artyom","Cyril","Daniil","Dmitry","Egor","Iwan","Maxim","Mikhail","Eden","Aloïs","Emrys","August","Basil","Emil","Elie","Elias","Félix","Liam","Hugh","Henry","Adriel","Eliel","Ezéchiel","Zachary","Cameron","Malone","Lenny","Leon","Leonard","Lewis","Orion","Levi","Archibald","Jasper","Caspar","Roman","Caleb","Abel","Chad","Owen","Derek","Charles","Charlie","Adam","Sacha","Tybalt","Théodore","James","Dennis","Leander","Alexander","Jackson","Isaac","Mia","Emma","Sofia","Hannah","Emilia","Anna","Marie","Mila","Lina","Leah","Ben","Paul","Jonas","Elias","Leon","Finn","Noah","Louis","Lucas","Felix","Amelia","Ava","Ella","Emily","Isabella","Isla","Jessica","Mia","Olivia","Poppy"];
-var firstnames = ["Abbott","Adams","Adamson","Adcock","Addams","Adhams","Aindreis","Allan","Allen","Allison","Alyn","Ambrose","Anderson","Andrés","Andrew","Andrews","Anew","Anthony","Apple","Archdeacon","Archer","Ash","Ashley","Atcock","Austen","Austin","Aylen","Aylin","Ayling","Baker","Bannerman","Baptist","Barber","Barry","Bartholomew","Beadle","Bearnard","Beef","Bennet","Benson","Berkelay","Berkeley","Bernard","Bernardson","Bigg","Bigs","Bird","Bishop","Black","Blacks","Blackson","Booth","Bowers","Bowman","Bridges","Bridgestone","Brook","Brooks","Brown","Brythe","Bull","Burgess","Busby","Bushby","Bush","Bushnell","Butcher","Cannon","Carlton","Carthew","Castle","Chaplain","Charles","Charley","Cheesmann","Chicken","Clerk","Coalman","Colin","Colins","Cook","Cooper","Cordell","Crossman","Curtis","Dalton","Daniels","Danielson","Davidson","Davis","Davy","Dawkins","Dawson","Deacon","Deakin","Dean","Driver","Earl","Eastwood","Elder","Ells","Fatt","Field","Fish","Fishman","Fitzmartin","Flanders","Fleming","Forest","Forester","Francis","Frank","Franklin","Frederick","Freeman","French","Frent","Friend","Fuller","Gardner","Garrison","Gibert","Gilson","Goldsmith","Grabriel","Greggson","Griggs","Hadcock","Harry","Henry","Hepburn","Hudson","Huggins","Jacobson","Johnson","Jones","Josephs","Kane","King","Kitchener","Knight","Lambertson","Lauwrence","Lawford","Leigh","Levinson","Levis","Lindon","Little","Mac-Mahon","Mac'Martin","Marsch","Mary","Matthew","Merill","Miller","Milner","Mogg","Monk","Montgomery","Moore","Morrison","Nail","Nightingal","Olivier","Parlan","Person","Peters","Potter","Prescott","Priest","Robbins","Roberson","Robertson","Robinson","Roman","Rosebury","Russel","Shepherdson","Sheppe","Shields","Simons","Simpson","Skinner","Slow","Smith","Spears","Spring","Stephen","Stratton","Strong","Tempel","Thomson","Turner","Wheeler","Williams","Wise","Wolfe","Wolff","Wood","Yougman","Young"];
-var locations = ["Rome","Milan"];
-var mobiles = ["+390661969084", ];
+var lastnames = ["Fender"];
+var firstnames = ["John"];
+var locations = ["Rome"];
+var mobiles = ["+390661969084"];
 var current = {back: {}, stack: []};
 
 // start
@@ -205,7 +205,7 @@ function init1(){
         return botui.action.text({
             action: {
                 datatype: "firstname",
-                placeholder: 'Enter the name here'
+                placeholder: 'Type here'
             }
         });
     }).then(function (res) { // will be called when it is submitted.
@@ -218,7 +218,7 @@ function init1(){
 }
 
 function init3(){
-    var texts = ["Bot initialization: please enter values ​​for this demo", "His or her location in Italy (city)"];
+    var texts = ["Bot initialization: please enter values ​​for this demo", "The location of the recipient in Italy (city)"];
     
     sendTexts(texts, function(){
         botui.action.text({
@@ -315,6 +315,10 @@ function init3(){
                         {
                             text: 'no',
                             value: 'no'
+                        },
+                        {
+                            text: 'use default',
+                            value: 'default'
                         }
                     ]
                 });
@@ -323,9 +327,10 @@ function init3(){
                 switch(response.value){
                     case "yes":  
                         bot.designer = response.url;
-                        break;
-                        
+                        break;                        
                     case "no":// TODO
+                        break;
+                    case "default":
                         break;
                 }                
                 
@@ -445,19 +450,7 @@ function connection2(){
 function connection3(){
     var texts = [`Good news! The remaining points around Rome Etoile store were handled by ${user2.firstname} ${user2.lastname}!`,`No more delayed questions`,`👑`];
     sendTexts(texts, function(){
-        return botui.action.button({
-            cssClass: "s2",
-            action: [
-                { // show only one button
-                text: 'Disconnect',
-                value: 'disconnect'
-                }
-            ]
-        }).then(function(response){
-            if(response.value=="disconnect"){
-                exit0({type: 3});
-            }
-        });
+        exit0({type: 3});
     });        
 }
 
@@ -519,7 +512,7 @@ function check4(){
         botui.action.button({
             action: [
                 { // show only one button
-                    text: '💁Assistance',
+                    text: 'Assistance',
                     value: 'assistance'
                 }
             ]
@@ -536,7 +529,7 @@ function check4(){
 }
 
 function check5(){
-    var texts = ["Thank you for this confirmation! Please enter a password to save time on your next connections"];
+    var texts = ["Thank you for this confirmation!", "Please enter a password to save time on your next connections"];
 
     botui.message.add({
         delay: 1000,
@@ -580,13 +573,26 @@ function intro1(){
         content: texts.join("<br/>")
     }).then(function(){
         return addImage({url: user2.url});
-    }).then(function (res) { // will be called when it is submitted.
-        var texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
-        return botui.message.add({
-            delay: 1000,
-            loading: true,
-            content: texts1.join("<br/>")
-        });
+    })
+    .then(function(){
+        return botui.action.button({
+            cssClass: "s2",
+            action: [
+                { // show only one button
+                text: 'continue',
+                value: 'continue'
+                }
+            ]
+            });
+    }).then(function(response){
+        if(response.value=="continue"){
+            var texts1 = [`For my part, I am a bot at your service, as the team who designed me and who can exchange with you if you need assistance.`];
+            return botui.message.add({
+                delay: 1000,
+                loading: true,
+                content: texts1.join("<br/>")
+            });
+        }
     }).then(function(){
         return addImage({url: bot.designer});
     }).then(function(){
@@ -798,6 +804,10 @@ function no6(){
         "I know it as a robot, because you can interrupt me at any time.",
         "😬"];
     var choices = [];
+    debugger;
+    if(user1.nDisconnect>0){
+        texts.splice(2,0, "... and you already did it elsewhere!");
+    }
     
     sendTexts(texts, function(){
         botui.action.button({
@@ -1198,7 +1208,7 @@ function readmore(){
 }
 
 function differ(){
-    var texts = ["You'll have to postpone the idea for this demo!", "⏲️"];
+    var texts = ["You’ll have to postpone the idea to postpone for this demo!", "⏲️"];
 
     sendTexts(texts, function(){
         botui.action.button({

@@ -339,41 +339,35 @@ button{
 }
 
 .wave {
-    background: url(wave.svg) repeat-x;
-
+    background-image: url(wave.svg);
+    background-repeat: repeat-x;
     background-size: auto 15vw;
     position: absolute;
     bottom: 0vw;
     width: 400%;
     height: 15vw;
     animation: wave 12s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
-    transform: translate3d(0, 0, 0);
     opacity: 0.8;
 }
 
 .wave:nth-of-type(2) {
     bottom: -1vw;
-    background: url(wave2.svg) repeat-x;
-    background-size: auto 15vw;
+    background-image: url(wave2.svg);
     animation: wave 12s cubic-bezier( 0.45, 0.36, 0.53, 0.63) infinite;
-    animation-delay: 2s;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.8;
-    
+    animation-delay: 2s;    
 }
 
 .wave:nth-of-type(3) {
     bottom: -2vw;
-    background: url(wave3.svg) repeat-x;
-    background-size: auto 15vw;
-    background-position: top left;
+    background-image: url(wave3.svg);
     animation: wave2 12s cubic-bezier( 0.45, 0.36, 0.53, 0.63)  infinite;
     animation-delay: 0s;
     width: 300vw;
-    transform: translate3d(0, 0, 0);
-    opacity: 0.8;
 
     margin-left: -135vw;
+}
+.wave{
+    animation-duration: 4s !important;
 }
 
 @keyframes wave2 {
@@ -384,7 +378,6 @@ button{
         margin-left: 0;
     }
 }
-
 
 @keyframes wave {
     0% {

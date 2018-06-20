@@ -170,7 +170,7 @@
                         <button v-if="action.form.readmore" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('readmore')">read more</button>
                         <button v-if="action.form.differ" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('differ')">differ this question</button>
                         <button v-if="action.form.transfer" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('transfer')">transfer this question</button>
-                        <button v-if="action.form.assistance" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('assistance')">💁assistance</button>
+                        <button v-if="action.form.assistance" type="button" class="botui-actions-buttons-button subMenu" @click="handle_action_form('assistance')">assistance</button>
                         <button type="button" class="botui-actions-buttons-button subMenu s2" @click="handle_action_subMenu('close')">✕</button>
                     </div>
                   </div>
@@ -197,7 +197,7 @@
                         <button v-if="action.form.readmore" type="button" class="botui-actions-buttons-button" @click="handle_action_form('readmore')">read more</button>
                         <button v-if="action.form.differ" type="button" class="botui-actions-buttons-button" @click="handle_action_form('differ')">differ this question</button>
                         <button v-if="action.form.transfer" type="button" class="botui-actions-buttons-button" @click="handle_action_form('transfer')">transfer this question</button>
-                        <button v-if="action.form.assistance" type="button" class="botui-actions-buttons-button" @click="handle_action_form('assistance')">💁assistance</button>
+                        <button v-if="action.form.assistance" type="button" class="botui-actions-buttons-button" @click="handle_action_form('assistance')">assistance</button>
                         <button type="button" class="botui-actions-buttons-button s2" @click="handle_action_subMenu('close')">✕</button>
                     </div>
                   </div>
@@ -278,26 +278,32 @@
             value: button.value
           };
 
-          if(button.value=="yes"){
-            document.getElementById("myFile").click();
-            this._data.action.addMessage = false;
-            
-            document.getElementById("myFile").onchange = function(){
-                var file = this.files[0];
-                //var url = window.URL.createObjectURL(file);
-                uploadFile(file, function(url){
-                  defaultActionObj.url = url;
-                  addImage({url: url, cssClass: "human"}).then(function(){
-                    _handleAction(button.text, "qcu");
-                    _actionResolve(defaultActionObj);
+          switch(button.value){
+            case "yes": 
+              document.getElementById("myFile").click();
+              this._data.action.addMessage = false;
+              
+              document.getElementById("myFile").onchange = function(){
+                  var file = this.files[0];
+                  //var url = window.URL.createObjectURL(file);
+                  uploadFile(file, function(url){
+                    defaultActionObj.url = url;
+                    addImage({url: url, cssClass: "human"}).then(function(){
+                      _handleAction(button.text, "qcu");
+                      _actionResolve(defaultActionObj);
+                    });
                   });
-                });
-            };
-          }
-          else{
-            this._data.action.addMessage = true;
-            _handleAction(button.text, "qcu");
-            _actionResolve(defaultActionObj);
+              };
+              break;
+            case "no":
+              this._data.action.addMessage = true;
+              _handleAction(button.text, "qcu");
+              _actionResolve(defaultActionObj);
+              break;
+            default:
+              this._data.action.addMessage = true;
+              _handleAction(button.text, "qcu");
+              _actionResolve(defaultActionObj);
           }          
     		},
     		handle_action_text: function () {

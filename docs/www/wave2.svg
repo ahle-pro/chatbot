@@ -40,7 +40,7 @@
      showgrid="true"
      inkscape:pagecheckerboard="true"
      inkscape:zoom="1.5"
-     inkscape:cx="482.64943"
+     inkscape:cx="374.3161"
      inkscape:cy="99"
      inkscape:window-x="1985"
      inkscape:window-y="-8"
@@ -54,10 +54,10 @@
      id="defs7">
     <linearGradient
        id="a"
-       x1="279.31454"
-       x2="281.42523"
-       y1="15.06831"
-       y2="562.84937"
+       x1="288.46085"
+       x2="288.46085"
+       y1="449.14243"
+       y2="-90.965553"
        gradientTransform="matrix(-1.4213367,0,0,0.35178152,800,0)"
        gradientUnits="userSpaceOnUse">
       <stop
