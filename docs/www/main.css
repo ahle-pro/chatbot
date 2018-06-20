@@ -41,6 +41,7 @@ body{
     margin: auto;
     background-color: white;
     position: absolute;
+    overflow: hidden;
 }
 
 .botui-app-container{
@@ -251,9 +252,8 @@ button.botui-actions-buttons-button{
 /* Responsive Web Design */
 @media screen and (orientation: portrait) {
     .botui-app-container{
-        height: calc(100% - 25vw);
-    }
-    
+        height: calc(100% - 22vw);
+    }    
 }
 
 @media screen and (orientation: landscape) {
