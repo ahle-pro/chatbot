@@ -259,7 +259,7 @@
           }
           var msg = "...";
           var subtype = "";
-          if (texts.length == 0 && button == "validate") return false;
+
           if (texts.length > 0 && button == "validate") {
             msg = texts.join(",");
             subtype = "qcm";
@@ -271,6 +271,10 @@
               });
             });
             _instance.action.show = !_instance.action.autoHide;
+          } else if (texts.length == 0 && button == "validate") {
+            msg = "None";
+            subtype = "qcm";
+            _handleAction(msg, subtype);
           } else {
             msg = button;
             subtype = "qcu";
