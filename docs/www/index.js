@@ -487,6 +487,7 @@ function check4() {
                 current.back.assistance = function () {
                     exit0({ type: 3 });
                 };
+                current.wrongPassword = true;
                 assistance();
             }
         });
@@ -1066,24 +1067,32 @@ function uploadFile(file, cb) {
 
 function assistance() {
     var texts = ["I'll be the most zealous bot, in connection with a human team.", "We will be able to detail the questions and answers.", "But for now, I'm not willing to help.", "😇"];
+    var choices = [{
+        text: 'OK, go back',
+        value: 'back'
+    }];
+
     if (user1.passed.assistance) {
         texts = ["Remember... No help at the moment.", "😇"];
     }
+    if (current.wrongPassword) choices = [{
+        text: 'Quit',
+        value: 'quit'
+    }];
 
     sendTexts(texts, function () {
         user1.passed.assistance = true;
         botui.action.button({
             cssClass: "s2",
-            action: [{
-                text: 'OK, go back',
-                value: 'back'
-            }]
+            action: choices
         }).then(function (response) {
             switch (response.value) {
                 case "back":
                     current.back.assistance();
                     break;
-
+                case "quit":
+                    current.back.assistance();
+                    break;
             }
         });
     });
