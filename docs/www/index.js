@@ -484,7 +484,7 @@ function check4() {
             }]
         }).then(function (response) {
             if (response.value == "assistance") {
-                current.back = function () {
+                current.back.assistance = function () {
                     exit0({ type: 3 });
                 };
                 assistance();
@@ -875,7 +875,6 @@ function no6_4() {
 
     sendTexts(texts, function () {
         user1.passed.no64 = true;
-        current.back = no6_4;
         botui.action.form({
             action: {
                 placeholder: "I know, they are ...",
