@@ -126,7 +126,7 @@
                       <i v-if="action.text.icon" class="botui-icon botui-action-text-icon fa" :class="'fa-' + action.text.icon"></i>
                       <input type="text" ref="input" :type="action.text.sub_type" v-model="action.text.value" class="botui-actions-text-input"
                           :placeholder="action.text.placeholder" :size="action.text.size" :value=" action.text.value" :class="action.text.cssClass" :datatype="action.text.datatype" :pattern="action.text.pattern"
-                          required v-focus v-input list="list"/>
+                          required v-focus v-input list="list" onfo/>
                         <datalist id="list"></datalist>
                       <button type="submit" :class="{'botui-actions-buttons-button': !!action.text.button, 'botui-actions-text-submit': !action.text.button}"></button>
                   </form>
@@ -376,6 +376,7 @@
           }
           var msg = "...";
           var subtype = "";
+          if(texts.length==0 && button=="validate") return false;
           if(texts.length>0 && button == "validate"){            
             msg = texts.join(",");
             subtype = "qcm";
@@ -388,7 +389,9 @@
             });
             _instance.action.show = !_instance.action.autoHide;
           }
-          else{
+          else{            
+            msg = button;
+            subtype = "qcu";
             _handleAction(msg, subtype);
           }           
           

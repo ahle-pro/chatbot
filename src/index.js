@@ -381,7 +381,7 @@ function connection(){
     }
     else{
         user1.taskDone = (user1.completed.no62 || user1.transfered.no62) && (user1.completed.no64 || user1.transfered.no64);
-        if(user1.taskDone){
+        if(user1.taskDone || user1.wrongPerson){
             connection3();
         }
         else{
@@ -434,7 +434,6 @@ function connection2(){
                         placeholder: 'Enter your password'
                     }
                 }).then(function(response){
-                    debugger;
                     if(current.password==user1.password){
                         intro();
                     }
@@ -451,6 +450,7 @@ function connection2(){
 }
 
 function connection3(){
+    $(".botui-messages-container").css("padding-bottom","10vh");
     var texts = [`Good news! The remaining points around Rome Etoile store were handled by ${user2.firstname} ${user2.lastname}!`,`No more delayed questions`,`👑`];
     sendTexts(texts, function(){
         exit0({type: 3});
@@ -560,13 +560,14 @@ function intro(){
     else{
         user1.taskDone = (user1.completed.no62 || user1.transfered.no62) && (user1.completed.no64 || user1.transfered.no64);
         
-        intro2();
+        store1_3();
         
     }
 
 }
         
 function intro1(){
+    $(".botui-messages-container").css("padding-bottom","10vh");
     addImage({url: user2.url})
     .then(function(){
         var texts = [`Your contact was sent to us directly by Emilia Prescci, but also by ${user2.firstname} ${user2.lastname} who works with you.`];
@@ -609,6 +610,7 @@ function intro1(){
             });
     }).then(function(response){
         if(response.value=="continue"){
+            $(".botui-messages-container").css("padding-bottom","");
             store1_1();
         }
     });
@@ -680,10 +682,10 @@ function store1_1(){
                 case "yes":
                     store1_3();
                     break;
+                
                 case "no1":
-                    store1_2();
-                    break;
                 case "no2":
+                    user1.wrongPerson = true;
                     store1_2();
                     break;
             }
@@ -700,7 +702,6 @@ function store1_2(){
                 placeholder: 'Type here'
             }
         }).then(function (res) { // will be called when it is submitted.
-            debugger;
     
             if(collaborators.includes(res.value)){// found
                 exit0({type: 1});
@@ -785,6 +786,7 @@ function store1_4(){
 
     sendTexts(texts, function(){
         user1.passed.store14 = true;
+        saveChanges();
         botui.action.button({
             action: choices
         })
@@ -894,8 +896,7 @@ function no6_2(){
                     break;
                 case 'differ':
                     debugger;
-                    user1.differed.no62 = true;
-                    current.back.differ = no6_4;
+                    current.back.differ = no6_2;
                     differ();
                     break;
                 case 'assistance':
@@ -995,8 +996,7 @@ function no6_4(){
                     transfer();
                     break;
                 case 'differ':
-                    user1.differed.no64 = true;
-                    current.back.differ = function(){exit0({type: 1});};
+                    current.back.differ = no6_4;
                     differ();
                     break;
                 case 'assistance':
@@ -1218,13 +1218,13 @@ function differ(){
         botui.action.button({
             action: [
                 {
-                    text: 'continue',
-                    value: 'continue'
+                    text: 'go back',
+                    value: 'back'
                 }
             ]
         }).then(function (response) {
             switch (response.value) {
-                case "continue":
+                case "back":
                     current.back.differ();
                     break;
 
