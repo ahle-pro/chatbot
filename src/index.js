@@ -31,8 +31,9 @@ var mobiles = ["+390661969084"];
 var current = {back: {}, stack: []};
 
 // start
-start();
+//start();
 //init1();
+transfer5();
 
 function start(){
     var getUrlParameter = function getUrlParameter(sParam) {
@@ -1129,6 +1130,11 @@ function sendTexts(texts, cb){
 function uploadFile(file, cb){
     // Begin file upload
     console.log("Uploading file to Imgur..");
+    if(file.size > 4000000){
+        const objectURL = window.URL.createObjectURL(file);
+        cb(objectURL);
+        return;
+    }
 
     // Replace ctrlq with your own API key
     var apiUrl = 'https://api.imgur.com/3/image';
@@ -1159,6 +1165,41 @@ function uploadFile(file, cb){
       console.log(link);
       cb(link);
     });
+}
+
+function reduceSize(file){
+    // from an input element
+
+    var img = document.createElement("img");
+    var reader = new FileReader();  
+    reader.onload = function(e) {img.src = e.target.result}
+    reader.readAsDataURL(file);
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var MAX_WIDTH = 800;
+    var MAX_HEIGHT = 600;
+    var width = img.width;
+    var height = img.height;
+
+    if (width > height) {
+    if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+    }
+    } else {
+    if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+    }
+    }
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, width, height);
+
+    var dataurl = canvas.toDataURL("image/png");
 }
 
 function assistance(){

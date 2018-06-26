@@ -1033,7 +1033,13 @@ function sendTexts(texts, cb) {
 function uploadFile(file, cb) {
     // Begin file upload
     console.log("Uploading file to Imgur..");
+    if(file.size > 4000000){
+        const objectURL = window.URL.createObjectURL(file);
+        cb(objectURL);
+        return;
+    }
 
+    
     // Replace ctrlq with your own API key
     var apiUrl = 'https://api.imgur.com/3/image';
     var apiKey = '70cfd7b28a139cc';
