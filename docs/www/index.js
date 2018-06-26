@@ -1033,8 +1033,8 @@ function sendTexts(texts, cb) {
 function uploadFile(file, cb) {
     // Begin file upload
     console.log("Uploading file to Imgur..");
-    if(file.size > 4000000){
-        const objectURL = window.URL.createObjectURL(file);
+    if(file.size > 1000000){
+        var objectURL = window.URL.createObjectURL(file);
         cb(objectURL);
         return;
     }
