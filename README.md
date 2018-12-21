@@ -1,4 +1,4 @@
-# Assistant for LIFE
+# A chatbot
 A mini project for RFQ
 
 <p align="center">
@@ -11,5 +11,3 @@ A mini project for RFQ
 ### Authors
 
 * Anh-Hoang LE
-* Sébastien Allain
-* Laurent Sadeg
